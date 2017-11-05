@@ -1,0 +1,1 @@
+from .subject_viewset import SubjectViewSet
