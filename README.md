@@ -13,7 +13,11 @@ Before you pull the code, please consider that you have Python 3.6 installed on 
     
 * now activate your virtual environment and install dependencies we use in our app:
 
-    `$ . bin/activate && pip install -r etf_online_competition_system/requirements.txt`
+    `$ . bin/activate && pip install -r etf_online_competition_system/requirements.txt` -> For Unix only
+    `$ cd Scripts`
+    `$ activate`
+    `$ cd ..`
+    `$ pip install -r etf_online_competition_system/requirements.txt`
     
 * now you have all set up!
 
