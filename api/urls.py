@@ -10,5 +10,5 @@ router.register(r'subjects', SubjectViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'oracle-query/', oracle_view)
+    url(r'^oracle-query/', oracle_view)
 ]
