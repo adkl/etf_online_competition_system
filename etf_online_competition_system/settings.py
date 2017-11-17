@@ -91,6 +91,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    'etf-oracle': {
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'etflab',
+        'HOST': '80.65.65.66',
+        'PORT': '1521',
+        'USER': 'BP12',
+        'PASSWORD': 'km8v6Elq',
     }
 }
 
