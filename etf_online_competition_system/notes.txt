@@ -1,0 +1,11 @@
+Django Admin administrator credentials:
+username: admin
+password: 1DvaTri!
+
+Django Admin moderator credentials:
+username: moderator_user
+password: 1DvaTri!
+
+Django Admin reviewer credentials:
+username: reviewer_user
+password: 1DvaTri!

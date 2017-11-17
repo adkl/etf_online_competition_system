@@ -12,18 +12,32 @@ class AppUser(BaseModel):
 
     user_details = models.OneToOneField(User)
 
+    def __str__(self):
+        return self.user_details.first_name + " " + self.user_details.last_name
+
 
 class Subject(BaseModel):
     title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
 
 
 class QuestionType(BaseModel):
     title = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.title
+
 
 class TestSetup(BaseModel):
+    title = models.CharField(max_length=255)
+
     subject = models.ForeignKey(Subject, related_name="test_setups")
     creator = models.ForeignKey(AppUser, related_name="test_setups")
+
+    def __str__(self):
+        return self.title
 
 
 class Question(BaseModel):
@@ -39,6 +53,9 @@ class ScheduledTest(BaseModel):
 
     test_setup = models.ForeignKey(TestSetup, related_name="scheduled_tests")
     creator = models.ForeignKey(AppUser, related_name="scheduled_tests")
+
+    def __str__(self):
+        return str(self.start) + " | " + self.test_setup.subject.title
 
 
 class ScheduledTestResult(BaseModel):
