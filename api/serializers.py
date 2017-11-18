@@ -10,11 +10,14 @@ class SubjectSerializer(serializers.ModelSerializer):
 
 class ScheduledTestListSerializer(serializers.ModelSerializer):
 
-    subject = serializers.SerializerMethodField()
+    # subject = serializers.SerializerMethodField()
+    #
+    # def get_subject(self, obj):
+    #     pass
 
-    def get_subject(self, obj):
-        pass
+    # start = serializers.DateTimeField()
+    # duration = serializers.DecimalField(max_digits=5, decimal_places=2)
 
     class Meta:
         model = ScheduledTest
-        fields = ['start, duration']
+        fields = ['id', 'start', 'duration']

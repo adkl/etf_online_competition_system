@@ -3,7 +3,7 @@ from api.models import TestSetup, ScheduledTestResult, ScheduledTest, Subject, Q
 QuestionType, Answer, PredefinedAnswer, AppUser
 
 
-class QuestionInline(admin.TabularInline):
+class QuestionInline(admin.StackedInline):
     model = Question
 
 
