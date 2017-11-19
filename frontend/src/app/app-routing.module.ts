@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { login } from 'app/login/login.component';
 import { Dashboard } from 'app/dashboard/dashboard.component';
+import { UserComponent} from 'app/user-profile/user.component'
 
 const appRoutes : Routes = [
     {path: 'login', component: login},
-    {path: 'dashboard', component: Dashboard}
+    {path: 'dashboard', component: Dashboard},
+    {path: 'profile', component: UserComponent}
 ]
 
 @NgModule({
@@ -19,5 +21,6 @@ const appRoutes : Routes = [
         RouterModule
       ]
 })
-
 export class AppRoutingModule {}
+
+// a izgleda mi dobro sve uradjeno :/

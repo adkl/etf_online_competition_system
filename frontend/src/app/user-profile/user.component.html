@@ -1,0 +1,39 @@
+<div class="container-fluid bg-2 text-center">
+    <div *ngIf="user">
+        <h2>Profile</h2>
+        <div class="container form-reg-custom custom-div">
+
+            <div class="row container-fluid form-group" style="margin-top:20px;">
+                <div class="custotm-div-label">
+                    <label class="control-label label-font col-md-2 col-md-offset-4 col-sm-2 col-sm-offset-4 col-xs-12">First Name:</label>
+                </div>
+                <div class="custotm-div-p col-md-4 col-sm-4 col-xs-12">
+                    <p class="label-font">
+                        {{user.first_name}}
+                    </p>
+                </div>
+            </div>
+            <div class="row container-fluid form-group">
+                <div class="custotm-div-label">
+                    <label class="control-label label-font col-md-2 col-md-offset-4 col-sm-2 col-sm-offset-4 col-xs-12">Last Name:</label>
+                </div>
+                <div class="custotm-div-p col-md-4 col-sm-4 col-xs-12">
+                    <p class="label-font">
+                        {{user.last_name}}
+                    </p>
+                </div>
+                </div>
+            <div class="row container-fluid form-group">
+                <div class="custotm-div-label">
+                    <label class="control-label label-font col-md-2 col-md-offset-4 col-sm-2 col-sm-offset-4 col-xs-12">Username:</label>
+                </div>
+                <div class="custotm-div-p col-md-4 col-sm-4 col-xs-12">
+                    <p class="label-font">
+                        {{user.username}}
+                    </p>
+                </div>
+             </div>
+
+        </div>
+        </div>
+</div>

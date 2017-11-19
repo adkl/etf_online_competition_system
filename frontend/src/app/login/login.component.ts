@@ -35,7 +35,7 @@ export class login {
             console.log("Empty username or password!!!");
         }
         else {
-            var url = "localhost:8000/api-token-auth/"
+            var url = "http://localhost:8000/api-token-auth/"
             var body = "username=".concat(this.username).concat("&password=").concat(this.password);
             this.loginService.login(url, body).subscribe(
                 data => {
