@@ -1,17 +1,17 @@
 <div class="login-page">
     <div class="form">
       <form *ngIf = '!status' class="register-form">
-        <input [value]="name" type="text" placeholder="name"/>
-        <input [value]="lastName" type="text" placeholder="last name"/>
-        <input [value]="eMail" type="text" placeholder="email address"/>
-        <input [value]="username" type="text" placeholder="username"/>
-        <input [value]="password" type="password" placeholder="password"/>
+        <input [value]="name" (input)="name=$event.target.value" type="text" placeholder="name"/>
+        <input [value]="lastName" (input)="lastName=$event.target.value" type="text" placeholder="last name"/>
+        <input [value]="eMail" (input)="eMail=$event.target.value" type="text" placeholder="email address"/>
+        <input [value]="username" (input)="username=$event.target.value" type="text" placeholder="username"/>
+        <input [value]="password" (input)="password=$event.target.value" type="password" placeholder="password"/>
         <button (click)="registerClick()">create</button>
         <p class="message">Already registered? <a href="#" (click)="click()">Sign In</a></p>
       </form>
       <form *ngIf = 'status' class="login-form">
-        <input [value]="username" type="text" placeholder="username"/>
-        <input [value]="password" type="password" placeholder="password"/>
+        <input [value]="username" (input)="username=$event.target.value" type="text" placeholder="username"/>
+        <input [value]="password" (input)="password=$event.target.value" type="password" placeholder="password"/>
         <button (click)="loginClick()">login</button>
         <p class="message">Not registered? <a href="#" (click)="click()">Create an account</a></p>
       </form>
