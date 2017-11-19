@@ -8,7 +8,7 @@ class BaseModel(models.Model):
 
 
 class AppUser(BaseModel):
-    jmbg = models.CharField(max_length=11)
+    jmbg = models.CharField(max_length=13)
 
     user_details = models.OneToOneField(User)
 
