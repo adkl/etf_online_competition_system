@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { login } from 'app/login/login.component';
+import { Login } from 'app/login/login.component';
 import { Dashboard } from 'app/dashboard/dashboard.component';
 import { UserComponent} from 'app/user-profile/user.component'
 import { AppRoutingModule } from 'app/app-routing.module';
@@ -15,7 +15,7 @@ import { UserService} from 'app/user-profile/user.service'
 @NgModule({
   declarations: [
     AppComponent, 
-    login, 
+    Login, 
     Dashboard,
     UserComponent
   ],

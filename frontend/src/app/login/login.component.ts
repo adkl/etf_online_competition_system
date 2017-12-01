@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { LoginService } from 'app/services/login.service'
 import { Router } from '@angular/router'
+import { BASE_URL } from 'app/config/constants'
 
 @Component ({
     selector: 'login',
@@ -8,10 +9,8 @@ import { Router } from '@angular/router'
     styleUrls: ['login.component.css']
 })
 
-export class login {
+export class Login {
     status:boolean = true
-    router:Router
-    loginService:LoginService
 
     username:string = ''
     password:string = ''
@@ -20,6 +19,8 @@ export class login {
     eMail:string = ''
 
     token:string = ''
+
+    constructor(private loginService: LoginService, private router: Router) {}
 
     click(event){
         if (this.status == true) {
@@ -32,14 +33,15 @@ export class login {
 
     loginClick(event){
         if (this.username == "" || this.password == "") {
+            // TODO: proper validation
             console.log("Empty username or password!!!");
         }
         else {
-            var url = "http://localhost:8000/api-token-auth/"
-            var body = "username=".concat(this.username).concat("&password=").concat(this.password);
+            var url = BASE_URL + "api-token-auth/"
+            let body = JSON.stringify({username: this.username, password: this.password})
             this.loginService.login(url, body).subscribe(
                 data => {
-                    this.router.navigate(['/app/dashboard/dashboard.component.html']);
+                    this.router.navigate(['/dashboard']);
                 }
             )
         }

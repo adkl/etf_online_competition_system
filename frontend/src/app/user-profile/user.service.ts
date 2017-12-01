@@ -16,7 +16,7 @@ export class UserService {
         const headerDict = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InNpaWkiLCJleHAiOjE1MTEyMTU4MjEsImVtYWlsIjoia29raUBrb2thLmNvbSJ9.jb9AbL_JN3BfeNIsV2-Oj2GBu6BY28H2Pexb7TY1wdY'
+        'Authorization': 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1LCJ1c2VybmFtZSI6InN0dWRlbnRfdXNlciIsImV4cCI6MTUxMTIyNjY2MSwiZW1haWwiOiJlY2VyaWNAZXRmLnVuc2EuYmEifQ.kG6sKevmm1vbTrydZcizfgGo-GejtvTe8m1SM9pqwaI'
         };
 
         const headerObj = {                                                                                                                                                                                 
