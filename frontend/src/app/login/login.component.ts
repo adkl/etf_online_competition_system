@@ -1,7 +1,8 @@
 import { Component } from '@angular/core'
-import { LoginService } from 'app/services/login.service'
 import { Router } from '@angular/router'
-import { BASE_URL } from 'app/config/constants'
+import { Config } from 'app/config/config'
+import { GlobalEventsManager } from 'app/config/global-events-manager';
+import { AuthService } from 'app/auth/auth.service';
 
 @Component ({
     selector: 'login',
@@ -9,7 +10,7 @@ import { BASE_URL } from 'app/config/constants'
     styleUrls: ['login.component.css']
 })
 
-export class Login {
+export class LoginComponent {
     status:boolean = true
 
     username:string = ''
@@ -20,7 +21,7 @@ export class Login {
 
     token:string = ''
 
-    constructor(private loginService: LoginService, private router: Router) {}
+    constructor(private authService: AuthService, private router: Router, private eventsManager: GlobalEventsManager) {}
 
     click(event){
         if (this.status == true) {
@@ -31,19 +32,20 @@ export class Login {
         }
     }
 
-    loginClick(event){
+    loginClick(){
+
         if (this.username == "" || this.password == "") {
             // TODO: proper validation
             console.log("Empty username or password!!!");
         }
         else {
-            var url = BASE_URL + "api-token-auth/"
-            let body = JSON.stringify({username: this.username, password: this.password})
-            this.loginService.login(url, body).subscribe(
-                data => {
-                    this.router.navigate(['/dashboard']);
-                }
-            )
+            this.authService.login(this.username, this.password).then((result) => {
+                this.eventsManager.loggedInUsername.emit(this.username);
+                this.eventsManager.showNavBar.emit(true);
+                this.router.navigate(['/dashboard']);
+            }).catch(err => {
+                console.error("Error in LoginClick", err);
+            })
         }
     }
 
@@ -53,12 +55,7 @@ export class Login {
             console.log("Error");
         }
         else {
-            var url = "localhost:8000/"
-            var body = "username=".concat(this.username).concat("&password=").concat(this.password);
-            body.concat("&name=").concat(this.name).concat("&lastName=").concat(this.lastName);
-            body.concat("&eMail=").concat(this.eMail);
-            
-            this.loginService.register(url, body);
+            // todo registration
         }
     }
 }

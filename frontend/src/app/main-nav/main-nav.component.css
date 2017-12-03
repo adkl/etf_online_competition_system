@@ -1,0 +1,25 @@
+.bg-1 { 
+    background-color: #C1D82D;
+    color: #ffffff;
+}
+
+.bg-2 {
+      background-color: #474e5d;
+      color: #ffffff;
+      padding-top:2%;
+      padding-bottom:2%;
+  }
+
+.cst-nav{
+    margin-bottom: 0px !important;
+    background-image:none !important;
+    border-radius:0px !important;
+    
+}
+
+/*
+    .custom-li:hover{
+    border-bottom:2px solid grey;
+}
+*/
+

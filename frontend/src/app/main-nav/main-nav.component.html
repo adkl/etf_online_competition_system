@@ -1,0 +1,25 @@
+<div *ngIf="showMenu">
+        <nav id="bootstrap-overrides" class="cst-nav navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- <a class="pull-left" href="http://www.etf.unsa.ba/"><img src="../../assets/etf-dugi.gif" /></a> -->
+                    <a class="navbar-brand" href="#">ETF ONLINE COMPETITION SYSTEM</a>
+                    
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li class="custom-li"><a style="pointer-events:none" href="javascript:function f(e){e.preventDefault();}"><span class="glyphicon glyphicon-user"></span> {{loggedInUsername}}</a></li>
+                        <li class="custom-li"><a (click)="logout()" href="#"><span class="glyphicon glyphicon-log-out"></span> LOG OUT</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    
+    

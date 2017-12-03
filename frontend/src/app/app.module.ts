@@ -4,31 +4,42 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { Login } from 'app/login/login.component';
-import { Dashboard } from 'app/dashboard/dashboard.component';
+import { MainNavComponent } from 'app/main-nav/main-nav.component';
+import { LoginComponent } from 'app/login/login.component';
+import { DashboardComponent } from 'app/dashboard/dashboard.component';
 import { UserComponent} from 'app/user-profile/user.component'
 import { AppRoutingModule } from 'app/app-routing.module';
-import { LoginService } from 'app/services/login.service';
 import { DashboardService } from 'app/services/dashboard.service';
-import { UserService} from 'app/user-profile/user.service'
+import { UserService} from 'app/user-profile/user.service';
+import { Config } from 'app/config/config';
+import { AuthService } from 'app/auth/auth.service';
+import { AuthModule } from 'app/auth/auth.module';
+import { GlobalEventsManager } from 'app/config/global-events-manager';
+import { AuthGuard, AuthGuardDeactivate } from 'app/auth/auth.guard';
 
 @NgModule({
   declarations: [
     AppComponent, 
-    Login, 
-    Dashboard,
+    MainNavComponent,
+    LoginComponent, 
+    DashboardComponent,
     UserComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    AuthModule,
     AppRoutingModule
   ],
   providers: [
-    LoginService, 
+    Config,
+    GlobalEventsManager,
     DashboardService,
-    UserService
+    UserService,
+    AuthGuard,
+    AuthGuardDeactivate,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

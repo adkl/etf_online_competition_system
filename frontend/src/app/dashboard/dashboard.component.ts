@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { DashboardService } from 'app/services/dashboard.service'
+import { Config } from 'app/config/config'
 
 @Component ({
     selector: 'dashboard',
@@ -7,7 +8,7 @@ import { DashboardService } from 'app/services/dashboard.service'
     styleUrls: ['dashboard.component.css']
 })
 
-export class Dashboard implements OnInit {
+export class DashboardComponent implements OnInit {
     tests:JSON
 
     constructor(private dashboardService:DashboardService) {}
@@ -18,8 +19,7 @@ export class Dashboard implements OnInit {
 
     getTests() {
         var promise;
-        var url = "localhost:8000/api/scheduled-tests/available-tests/"
-        promise = this.dashboardService.getTests(url).toPromise().then(
+        promise = this.dashboardService.getTests().toPromise().then(
             res => {
                 this.tests = res.json();
             }
