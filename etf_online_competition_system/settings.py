@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework_jwt',
     'corsheaders',
     'api',
+    'nested_admin',
 ]
 
 MIDDLEWARE = [
