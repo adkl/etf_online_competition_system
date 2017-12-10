@@ -14,17 +14,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.staticfiles.views import serve
+from django.views.generic import TemplateView, RedirectView
 from rest_framework_jwt.views import obtain_jwt_token
 from api.admin import admin_site
 
 from api import urls
+from . import settings
 
 urlpatterns = [
 
     # url(r'^admin/', admin.site.urls),
+    url(r'^$', serve, kwargs={'path': 'index.html'}),
+    url(r'^(?!/?static/)(?!/?media/)(?P<path>.*\..*)$', RedirectView.as_view(url='/static/%(path)s', permanent=False)),
     url(r'^admin/', admin_site.urls),
     url(r'^nested_admin/', include('nested_admin.urls')),
     url(r'^api-token-auth/', obtain_jwt_token),
     url(r'^api/', include(urls)),
+    url(r'.*', RedirectView.as_view(url='/', permanent=True))
 ]
+
+urlpatterns += static(r'^static', document_root=settings.ANGULAR_APP_DIR)
