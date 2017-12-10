@@ -61,7 +61,8 @@ class ScheduledTest(BaseModel):
     creator = models.ForeignKey(AppUser, related_name="scheduled_tests")
 
     def __str__(self):
-        return self.test_setup.subject.title + " | Duration: {}".format(self.duration)
+        return self.test_setup.title +  " | " + self.test_setup.subject.title + \
+               " | {}".format(self.start.date()) + " | Duration: {} h".format(self.duration)
 
 
 class ScheduledTestResult(BaseModel):
