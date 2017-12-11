@@ -13,7 +13,8 @@ class AppUser(BaseModel):
     user_details = models.OneToOneField(User)
 
     def __str__(self):
-        return self.user_details.first_name + " " + self.user_details.last_name
+        return self.user_details.first_name + " " + self.user_details.last_name \
+                + " | " + self.user_details.groups.first().name
 
 
 class Subject(BaseModel):
@@ -46,16 +47,22 @@ class Question(BaseModel):
     test_setup = models.ForeignKey(TestSetup, on_delete=models.CASCADE, related_name="questions")
     question_type = models.ForeignKey(QuestionType, related_name="questions")
 
+    def __str__(self):
+        if len(self.text) > 100:
+            return self.text[:100].join("...")
+        return self.text
+
 
 class ScheduledTest(BaseModel):
     start = models.DateTimeField()
-    duration = models.DecimalField(max_digits=5, decimal_places=2)
+    duration = models.DecimalField(verbose_name="Duration (in hours)", max_digits=5, decimal_places=2)
 
     test_setup = models.ForeignKey(TestSetup, related_name="scheduled_tests")
     creator = models.ForeignKey(AppUser, related_name="scheduled_tests")
 
     def __str__(self):
-        return self.test_setup.subject.title + " | Duration: {}".format(self.duration)
+        return self.test_setup.title +  " | " + self.test_setup.subject.title + \
+               " | {}".format(self.start.date()) + " | Duration: {} h".format(self.duration)
 
 
 class ScheduledTestResult(BaseModel):
@@ -65,11 +72,18 @@ class ScheduledTestResult(BaseModel):
     student = models.ForeignKey(AppUser, related_name="results")
     reviewer = models.ForeignKey(AppUser, related_name="scheduled_test_results")
 
+    def __str__(self):
+        return self.scheduled_test.test_setup.title + " | Student: " + self.student.user_details.first_name + \
+                " " + self.student.user_details.last_name
+
 
 class PredefinedAnswer(BaseModel):
     text = models.CharField(max_length=1024)
 
     question = models.ForeignKey(Question, related_name="predefined_answers")
+
+    def __str__(self):
+        return self.text
 
 
 class Answer(BaseModel):
@@ -80,6 +94,9 @@ class Answer(BaseModel):
     question = models.ForeignKey(Question, related_name="answers")
     scheduled_test_result = models.ForeignKey(ScheduledTestResult, related_name="answers")
     predefined_answers = models.ManyToManyField(PredefinedAnswer, related_name="answers")
+
+    def __str__(self):
+        return self.text
 
 
 

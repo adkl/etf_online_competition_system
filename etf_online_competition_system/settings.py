@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework_jwt',
     'corsheaders',
     'api',
+    'nested_admin',
 ]
 
 MIDDLEWARE = [
@@ -147,4 +148,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+
+ANGULAR_APP_DIR = os.path.join(BASE_DIR, 'frontend/dist')
+STATICFILES_DIRS = [
+    os.path.join(ANGULAR_APP_DIR),
+]
+
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# continue with https://www.techiediaries.com/django-angular-cli/
