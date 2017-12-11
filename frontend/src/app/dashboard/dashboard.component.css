@@ -12,14 +12,16 @@ ul {
 .test {
     background: #4CAF50;
     list-style-type: none;
-    max-width: 360px;
-    font-size: 16px;
     color: white;
     font-family: "Roboto", sans-serif;
     padding: 0;
     margin: 0;
 }
 
+.test:hover {
+    background: rgb(0, 158, 6);
+}
+
 #p {
-    display: initial;
+    display: inline-flex;
 }
