@@ -11,7 +11,7 @@ import { TakeTestComponent } from 'app/take-test/take-test.component';
 import { UserComponent } from 'app/user-profile/user.component';
 import { AppRoutingModule } from 'app/app-routing.module';
 import { DashboardService } from 'app/services/dashboard.service';
-import { UserService} from 'app/user-profile/user.service';
+import { UserService } from 'app/user-profile/user.service';
 import { Config } from 'app/config/config';
 import { AuthService } from 'app/auth/auth.service';
 import { AuthModule } from 'app/auth/auth.module';
@@ -20,11 +20,12 @@ import { AuthGuard, AuthGuardDeactivate } from 'app/auth/auth.guard';
 
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent,
     MainNavComponent,
-    LoginComponent, 
+    LoginComponent,
     DashboardComponent,
-    UserComponent
+    UserComponent,
+    TakeTestComponent
   ],
   imports: [
     BrowserModule,

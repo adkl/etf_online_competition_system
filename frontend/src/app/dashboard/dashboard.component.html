@@ -1,6 +1,6 @@
 <div id="dashboard-component">
     <ul>
-        <li class="test" *ngFor="let test of tests">
+        <li (click)="takeTest(test.id)" class="test" *ngFor="let test of tests">
             <p class="p">Test ID: {{test.id}}</p>
             <p class="p">Test date/time: {{test.start}}</p>
             <p class="p">Duration: {{test.duration}} min</p>

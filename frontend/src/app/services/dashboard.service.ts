@@ -9,7 +9,7 @@ export class DashboardService {
 
     TESTS_API_ROUTE = '/api/scheduled-tests/available-tests/'
     SINGLE_TEST_API_ROUTE(id) {
-        return `/api/scheduled-tests/available-tests/${id}/`
+        return `/api/scheduled-tests/${id}/`
     }
 
     constructor(private http: AuthHttp) { }

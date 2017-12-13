@@ -3,6 +3,7 @@ import { DashboardService } from 'app/services/dashboard.service'
 import { Config } from 'app/config/config'
 import { Testability } from '@angular/core/src/testability/testability';
 import { Test } from 'app/dashboard/test';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'dashboard',
@@ -13,7 +14,10 @@ import { Test } from 'app/dashboard/test';
 export class DashboardComponent implements OnInit {
     tests: Test[] = [];
 
-    constructor(private dashboardService: DashboardService) { }
+    constructor(
+        private dashboardService: DashboardService,
+        private router: Router
+    ) { }
 
     ngOnInit() {
         this.getTests();
@@ -25,5 +29,9 @@ export class DashboardComponent implements OnInit {
                 this.tests = res.json();
             }
         )
+    }
+
+    takeTest(id) {
+        this.router.navigate([`/take-test/${id}`])
     }
 }

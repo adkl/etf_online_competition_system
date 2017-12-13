@@ -1,5 +1,6 @@
 import { DashboardService } from 'app/services/dashboard.service'
 import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute, Params } from '@angular/router'
 
 
 @Component({
@@ -8,21 +9,25 @@ import { Component, OnInit } from '@angular/core'
     styleUrls: ['take-test.component.css']
 })
 export class TakeTestComponent implements OnInit {
-    test;
+    testId: number;
 
-    constructor(private dashboardService: DashboardService) {
-
-    }
+    constructor(
+        private dashboardService: DashboardService,
+        private router: ActivatedRoute
+    ) { }
 
     ngOnInit(): void {
-        //this.getTest();
+        this.router.params.forEach((params: Params) => {
+            this.testId = params['id'];
+        })
+        this.getTest(this.testId);
     }
 
-    getTest() {
-        this.dashboardService.getSingleTest(1)
+    getTest(id) {
+        this.dashboardService.getSingleTest(id)
             .toPromise()
             .then(res => {
-                this.test = res
+                // this.test = res
             })
     }
 }
