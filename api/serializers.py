@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Subject, ScheduledTest, AppUser
+from api.models import Subject, ScheduledTest, AppUser, TestSetup, Question, PredefinedAnswer
 from django.contrib.auth.models import User
 
 
@@ -24,6 +24,39 @@ class ScheduledTestListSerializer(serializers.ModelSerializer):
         fields = ['id', 'start', 'duration']
 
 
+class PredefinedAnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PredefinedAnswer
+        fields = '__all__'
+
+
+class QuestionSerializer(serializers.ModelSerializer):
+
+    predefined_answers = PredefinedAnswerSerializer(many=True)
+
+    class Meta:
+        model = Question
+        fields = '__all__'
+
+
+class TestSetupSerializer(serializers.ModelSerializer):
+
+    questions = QuestionSerializer(many=True)
+
+    class Meta:
+        model = TestSetup
+        fields = '__all__'
+
+
+class ScheduledTestDetailsSerializer(serializers.ModelSerializer):
+
+    test_setup = TestSetupSerializer()
+
+    class Meta:
+        model = ScheduledTest
+        fields = '__all__'
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -37,4 +70,3 @@ class AppUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = AppUser
         fields = '__all__'
-

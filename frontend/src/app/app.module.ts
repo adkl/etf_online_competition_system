@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 import { MainNavComponent } from 'app/main-nav/main-nav.component';
 import { LoginComponent } from 'app/login/login.component';
 import { DashboardComponent } from 'app/dashboard/dashboard.component';
-import { UserComponent} from 'app/user-profile/user.component'
+import { TakeTestComponent } from 'app/take-test/take-test.component';
+import { UserComponent } from 'app/user-profile/user.component';
 import { AppRoutingModule } from 'app/app-routing.module';
 import { DashboardService } from 'app/services/dashboard.service';
 import { UserService} from 'app/user-profile/user.service';
