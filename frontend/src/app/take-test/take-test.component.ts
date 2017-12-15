@@ -10,6 +10,7 @@ import { ActivatedRoute, Params } from '@angular/router'
 })
 export class TakeTestComponent implements OnInit {
     testId: number;
+    test = {};
 
     constructor(
         private dashboardService: DashboardService,
@@ -27,7 +28,7 @@ export class TakeTestComponent implements OnInit {
         this.dashboardService.getSingleTest(id)
             .toPromise()
             .then(res => {
-                // this.test = res
+                this.test = res.json()
             })
     }
 }

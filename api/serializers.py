@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from api.models import Subject, ScheduledTest, AppUser, TestSetup, Question, PredefinedAnswer
+from api.models import Subject, ScheduledTest, AppUser, TestSetup, Question, PredefinedAnswer, ScheduledTestResult, \
+    Answer
 from django.contrib.auth.models import User
 
 
@@ -70,3 +71,23 @@ class AppUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = AppUser
         fields = '__all__'
+
+
+class SubmitAnswerSerializer(serializers.ModelSerializer):
+
+    id = serializers.IntegerField()
+    selected = serializers.ListField(child=serializers.IntegerField())
+
+    class Meta:
+        model = Answer
+        fields = ['id', 'selected']
+
+
+class SubmitScheduledTestResultSerializer(serializers.ModelSerializer):
+
+    id = serializers.IntegerField()
+    answers = SubmitAnswerSerializer(many=True)
+
+    class Meta:
+        model = ScheduledTestResult
+        fields = ['id', 'answers']
