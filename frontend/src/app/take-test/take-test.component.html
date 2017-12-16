@@ -1,4 +1,6 @@
 <div>
     <h1>Take Test </h1>
-    
+    <div *ngFor="let question of scheduledTest?.test_setup.questions">
+        {{question.text}}
+    </div>
 </div>
