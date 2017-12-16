@@ -11,8 +11,8 @@ export class PredefinedAnswer {
 
 export class Question {
     text: string;
-    questionTypeId: number;
-    predefinedAnswers: PredefinedAnswer[];
+    question_type: number;
+    predefined_answers: PredefinedAnswer[];
 }
 
 export class TestSetup {
