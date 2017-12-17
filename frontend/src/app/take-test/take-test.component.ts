@@ -1,7 +1,8 @@
 import { DashboardService } from 'app/services/dashboard.service'
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
-import { TestSetup, ScheduledTest } from './test-application'
+import { TestSetup, ScheduledTest, TestSubmit } from './test-application'
+import { Answer } from 'app/take-test/answer';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { TestSetup, ScheduledTest } from './test-application'
 export class TakeTestComponent implements OnInit {
     testId: number;
     scheduledTest: ScheduledTest;
+    testSubmit: TestSubmit;
 
     constructor(
         private dashboardService: DashboardService,
@@ -33,5 +35,10 @@ export class TakeTestComponent implements OnInit {
                 console.log(res)
                 _this.scheduledTest = res.json()
             })
+    }
+
+    initializeSubmitTest(): void {
+        this.testSubmit = new TestSubmit();
+        
     }
 }

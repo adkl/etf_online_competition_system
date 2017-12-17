@@ -66,11 +66,11 @@ class ScheduledTest(BaseModel):
 
 
 class ScheduledTestResult(BaseModel):
-    comment = models.CharField(max_length=1024)
+    comment = models.CharField(max_length=1024, null=True)
 
     scheduled_test = models.ForeignKey(ScheduledTest, related_name="results")
     student = models.ForeignKey(AppUser, related_name="results")
-    reviewer = models.ForeignKey(AppUser, related_name="scheduled_test_results")
+    reviewer = models.ForeignKey(AppUser, related_name="scheduled_test_results", null=True)
 
     def __str__(self):
         return self.scheduled_test.test_setup.title + " | Student: " + self.student.user_details.first_name + \
@@ -88,12 +88,12 @@ class PredefinedAnswer(BaseModel):
 
 class Answer(BaseModel):
     text = models.CharField(max_length=4096)
-    comment = models.CharField(max_length=4096)
-    points = models.DecimalField(max_digits=5, decimal_places=2)
+    comment = models.CharField(max_length=4096, null=True)
+    points = models.DecimalField(max_digits=5, decimal_places=2, null=True)
 
     question = models.ForeignKey(Question, related_name="answers")
-    scheduled_test_result = models.ForeignKey(ScheduledTestResult, related_name="answers")
-    predefined_answers = models.ManyToManyField(PredefinedAnswer, related_name="answers")
+    scheduled_test_result = models.ForeignKey(ScheduledTestResult, null=True, related_name="answers")
+    predefined_answers = models.ManyToManyField(PredefinedAnswer, null=True, related_name="answers")
 
     def __str__(self):
         return self.text
