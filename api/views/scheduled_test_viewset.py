@@ -13,7 +13,8 @@ class ScheduledTestViewSet(ModelViewSet, RetrieveModelMixin):
 
     @list_route(methods=['GET'], url_path='available-tests')
     def get_available_scheduled_tests(self, request):
-        available_tests = self.queryset.filter(start__gt=timezone.now())
+        user = request.user
+        available_tests = self.queryset.filter(start__gt=timezone.now()).exclude(results__student__user_details=user)
         serializer = ScheduledTestListSerializer(available_tests, many=True)
         return Response(serializer.data)
 
