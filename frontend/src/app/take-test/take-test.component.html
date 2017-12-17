@@ -2,26 +2,29 @@
     <br/>
     <form class="form-horizontal">
         <legend>{{scheduledTest?.test_setup.title}}</legend>
-        <div class="form-group" *ngFor="let question of scheduledTest?.test_setup.questions; let i = index">
-                <h4>Question {{i+1}}:</h4>
-                <h5>
-                    {{question.text}}        
-                </h5>
-                <div *ngIf="question.question_type == 1">
-                    <!-- Basic question -->
-                    <textarea class="form-control" rows="2">
-        
-                    </textarea>
-                </div>
-                <div *ngIf="question.question_type > 1">
-                    <!-- Question with predefined answers -->
-                    <div class="checkbox" *ngFor="let predefined_answer of question.predefined_answers">
-                        <label>
-                            <input type="checkbox" value="predefined_answer.id">{{predefined_answer.text}}
-                        </label>
-                    </div>
+        <div class="form-group" *ngFor="let question of scheduledTest?.test_setup.questions; let i = index;">
+            <h4>Question {{i+1}}:</h4>
+            <h5>
+                {{question.text}}      
+            </h5>
+            <div *ngIf="question.question_type == 1">
+                <!-- Basic question -->
+                <textarea class="form-control" required rows="2" [ngModelOptions]="{standalone: true}" [(ngModel)]="question.user_answer.text"></textarea>
+            </div>
+            <div *ngIf="question.question_type > 1">
+                <!-- Question with predefined answers -->
+                <div class="checkbox" *ngFor="let predefined_answer of question.predefined_answers; let j = index;">
+                    <label>
+                        <input type="checkbox" value="predefined_answer.id" [ngModelOptions]="{standalone: true}" [(ngModel)]="question.user_answer.selected[j]">{{predefined_answer.text}}
+                    </label>
                 </div>
             </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+                <button type="submit" class="btn btn-primary" (click)="submitTest()">Submit</button>
+            </div>
+        </div>
     </form>
     
 </div>

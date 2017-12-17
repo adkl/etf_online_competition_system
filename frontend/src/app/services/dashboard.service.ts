@@ -11,6 +11,7 @@ export class DashboardService {
     SINGLE_TEST_API_ROUTE(id) {
         return `/api/scheduled-tests/${id}/`
     }
+    SUBMIT_TEST_ROUTE = '/api/scheduled-test-result/'
 
     constructor(private http: AuthHttp) { }
 
@@ -19,7 +20,11 @@ export class DashboardService {
     }
 
     getSingleTest(id) {
-        return this.http.get(Config.BASE_URL + this.SINGLE_TEST_API_ROUTE(id))
+        return this.http.get(Config.BASE_URL + this.SINGLE_TEST_API_ROUTE(id));
+    }
+
+    submitSingleTest(body) {
+        return this.http.post(Config.BASE_URL + this.SUBMIT_TEST_ROUTE, body);
     }
 
 }

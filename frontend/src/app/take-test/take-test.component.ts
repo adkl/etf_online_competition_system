@@ -1,8 +1,7 @@
 import { DashboardService } from 'app/services/dashboard.service'
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
-import { TestSetup, ScheduledTest, TestSubmit } from './test-application'
-import { Answer } from 'app/take-test/answer';
+import { TestSetup, ScheduledTest, TestSubmit, Answer, SubmitAnswer } from './test-application'
 
 
 @Component({
@@ -13,7 +12,6 @@ import { Answer } from 'app/take-test/answer';
 export class TakeTestComponent implements OnInit {
     testId: number;
     scheduledTest: ScheduledTest;
-    testSubmit: TestSubmit;
 
     constructor(
         private dashboardService: DashboardService,
@@ -28,17 +26,40 @@ export class TakeTestComponent implements OnInit {
     }
 
     getTest(id): void {
-        let _this = this;
         this.dashboardService.getSingleTest(id)
             .toPromise()
             .then(res => {
-                console.log(res)
-                _this.scheduledTest = res.json()
+                // console.log(res)
+                this.scheduledTest = res.json()
+                this.initializeAnswers();
             })
     }
 
-    initializeSubmitTest(): void {
-        this.testSubmit = new TestSubmit();
-        
+    initializeAnswers(): void {
+        this.scheduledTest.test_setup.questions.forEach(question => {
+            question.user_answer = new Answer(question.predefined_answers.length);
+        });
+    }
+
+    submitTest(): void {
+        console.log(this.scheduledTest);
+        let testSubmit = new TestSubmit();
+        testSubmit.id = this.scheduledTest.id;
+        this.scheduledTest.test_setup.questions.forEach(question => {
+            // Set selected answers
+            let selected = [];
+            question.user_answer.selected.map( (p, index) => {
+                if( p == true ) 
+                    selected.push(question.predefined_answers[index].id)
+            });
+            let new_answer = new SubmitAnswer(question.id, question.user_answer.text, selected)
+            testSubmit.answers.push(new_answer)
+        });
+        console.log(testSubmit);
+        this.dashboardService.submitSingleTest(testSubmit)
+            .toPromise()
+            .then(res => {
+                console.log(res);
+            });
     }
 }

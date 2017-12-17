@@ -1,7 +1,33 @@
-import { Answer } from './answer';
- 
+
+export class Answer {
+    questionId: number;
+    selected: boolean[];
+    text: string;
+
+    constructor(selected_length) {
+        this.selected = new Array<boolean>(selected_length);
+        this.text = "";
+    }
+}
+
+export class SubmitAnswer {
+    id: number;
+    text: string;
+    selected: number[]
+
+    constructor(id, text, selected) {
+        this.id = id;
+        this.text = text;
+        this.selected = selected;
+    }
+}
+
 export class TestSubmit {
-    answers: Answer[]
+    answers: SubmitAnswer[];
+    id: number;
+    constructor() {
+        this.answers = new Array<SubmitAnswer>();
+    }
 }
 
 export class PredefinedAnswer {
@@ -10,9 +36,11 @@ export class PredefinedAnswer {
 }
 
 export class Question {
+    id: number;
     text: string;
     question_type: number;
     predefined_answers: PredefinedAnswer[];
+    user_answer: Answer;
 }
 
 export class TestSetup {
@@ -26,3 +54,4 @@ export class ScheduledTest {
     start: string;
     test_setup: TestSetup;    
 }
+
