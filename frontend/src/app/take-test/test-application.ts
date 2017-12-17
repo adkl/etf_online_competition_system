@@ -16,7 +16,8 @@ export class Question {
 }
 
 export class TestSetup {
-    questions: Question[];    
+    questions: Question[]; 
+    title: string;   
 }
 
 export class ScheduledTest {

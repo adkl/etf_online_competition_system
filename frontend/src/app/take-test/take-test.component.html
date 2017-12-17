@@ -1,21 +1,27 @@
 <div class="col-lg-8 col-lg-offset-2">
-    <h1>Take Test </h1>
-    <div *ngFor="let question of scheduledTest?.test_setup.questions; let i = index">
-        <h5>Question {{i+1}}:</h5>
-        <div>
-            {{question.text}}        
-        </div>
-        <div *ngIf="question.question_type == 1">
-            <!-- Basic question -->
-            <textarea rows="3">
-
-            </textarea>
-        </div>
-        <div *ngIf="question.question_type == 2">
-            <!-- Question with predefined answers -->
-            <div *ngFor="let predefined_answer of question.predefined_answers">
-                <input type="checkbox" value="predefined_answer.id">{{predefined_answer.text}}
+    <br/>
+    <form class="form-horizontal">
+        <legend>{{scheduledTest?.test_setup.title}}</legend>
+        <div class="form-group" *ngFor="let question of scheduledTest?.test_setup.questions; let i = index">
+                <h4>Question {{i+1}}:</h4>
+                <h5>
+                    {{question.text}}        
+                </h5>
+                <div *ngIf="question.question_type == 1">
+                    <!-- Basic question -->
+                    <textarea class="form-control" rows="2">
+        
+                    </textarea>
+                </div>
+                <div *ngIf="question.question_type > 1">
+                    <!-- Question with predefined answers -->
+                    <div class="checkbox" *ngFor="let predefined_answer of question.predefined_answers">
+                        <label>
+                            <input type="checkbox" value="predefined_answer.id">{{predefined_answer.text}}
+                        </label>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+    </form>
+    
 </div>
