@@ -3,7 +3,7 @@ import { Router } from '@angular/router'
 import { Config } from 'app/config/config'
 import { GlobalEventsManager } from 'app/config/global-events-manager';
 import { AuthService } from 'app/auth/auth.service';
-
+declare var swal: any;
 @Component ({
     selector: 'login',
     templateUrl: 'login.component.html',
@@ -36,12 +36,24 @@ export class LoginComponent {
 
         if (this.username == "" || this.password == "") {
             // TODO: proper validation
+            swal({
+                title: 'Error!',
+                text: 'Try again!',
+                type: 'error',
+                //confirmButtonText: 'Cool'
+              })
             console.log("Empty username or password!!!");
         }
         else {
             this.authService.login(this.username, this.password).then((result) => {
                 this.eventsManager.loggedInUsername.emit(this.username);
                 this.eventsManager.showNavBar.emit(true);
+                swal({
+                    title: 'Succes!',
+                    text: 'Welcome!',
+                    type: 'success',
+                    //confirmButtonText: 'Cool'
+                  })
                 this.router.navigate(['/dashboard']);
             }).catch(err => {
                 console.error("Error in LoginClick", err);

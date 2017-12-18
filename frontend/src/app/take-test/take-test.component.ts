@@ -1,8 +1,9 @@
 import { DashboardService } from 'app/services/dashboard.service'
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
+import { Router } from '@angular/router'
 import { TestSetup, ScheduledTest, TestSubmit, Answer, SubmitAnswer } from './test-application'
-
+declare var swal: any;
 
 @Component({
     selector: 'take-test',
@@ -15,7 +16,8 @@ export class TakeTestComponent implements OnInit {
 
     constructor(
         private dashboardService: DashboardService,
-        private router: ActivatedRoute
+        private router: ActivatedRoute,
+        private route: Router
     ) { }
 
     ngOnInit(): void {
@@ -61,5 +63,14 @@ export class TakeTestComponent implements OnInit {
             .then(res => {
                 console.log(res);
             });
+            swal({
+                title: 'Succes!',
+                text: 'Done!',
+                type: 'success',
+                //confirmButtonText: 'Cool'
+                })
+            //this.router.navigate(['/dashboard']);
+            //, {relativeTo: this.router});
+            this.route.navigate(['../dashboard'])
     }
 }
