@@ -20,7 +20,10 @@ class ScheduledTestViewSet(ModelViewSet, RetrieveModelMixin):
 
     def retrieve(self, request, *args, **kwargs):
         test_pk = kwargs.get('pk')
-        test = self.queryset.filter(start__gt=timezone.now()).get(id=test_pk)
+        user = request.user
+        test = self.queryset.filter(start__gt=timezone.now())\
+            .exclude(results__student__user_details=user)\
+            .get(id=test_pk)
         serializer = ScheduledTestDetailsSerializer(test)
         return Response(serializer.data)
 
