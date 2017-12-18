@@ -42,6 +42,7 @@ export class AuthService {
         localStorage.removeItem('loggedInUsername');
         this.loggedInUsername = "";
 
+
     }
 
     private handleSuccess(response: any) {
@@ -51,6 +52,7 @@ export class AuthService {
 
         this.isLoggedIn = true;
         localStorage.setItem('loggedInUsername', this.loggedInUsername);
+
     }
 
     private handleError(error: any) {

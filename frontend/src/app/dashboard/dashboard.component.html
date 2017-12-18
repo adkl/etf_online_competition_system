@@ -1,9 +1,23 @@
-<div id="dashboard-component">
-    <ul>
-        <li (click)="takeTest(test.id)" class="test" *ngFor="let test of tests">
-            <p class="p">Test ID: {{test.id}}</p>
-            <p class="p">Test date/time: {{test.start}}</p>
-            <p class="p">Duration: {{test.duration}} min</p>
-        </li>
-    </ul>
-</div>
+
+ <div class="row-md-8">
+        <div class="col-sm-6 col-md-3" *ngFor="let test of tests"> 
+
+            <div  (click)="takeTest(test.id)"class="panel panel-primary" >
+                <div class="panel-heading">
+                        <h3 class="panel-title"> Predmet: {{test.id}} </h3>
+                </div>
+                <div class="panel-body">
+                        <div class="alert alert-dismissible alert-info">
+                                <strong>Naslov testa: Skroz fini naslov</strong>
+                                <p>Test date/time: {{test.start}}</p> 
+                                <p>Duration: {{test.duration}} min.</p>
+                         </div>
+
+            </div> 
+
+
+        </div>
+</div> 
+
+
+

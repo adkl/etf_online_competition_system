@@ -48,6 +48,10 @@ export class MainNavComponent implements OnInit {
         this.router.navigate(['/login']);
     }
 
+    profile(){
+        this.router.navigate(['/profile']);
+    }
+
     // gotoHomePage() {
     //     let link = ['/home'];
     //     this.router.navigate(link);

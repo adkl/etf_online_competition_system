@@ -14,7 +14,7 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
 
-                        <li class="custom-li"><a style="pointer-events:none" href="javascript:function f(e){e.preventDefault();}"><span class="glyphicon glyphicon-user"></span> {{loggedInUsername}}</a></li>
+                        <li class="custom-li"><button type="button" class="btn btn-primary btn-lg" (click)="profile()"> {{loggedInUsername}} </button></li>
                         <li class="custom-li"><a (click)="logout()" href="#"><span class="glyphicon glyphicon-log-out"></span> LOG OUT</a></li>
                     </ul>
                 </div>
