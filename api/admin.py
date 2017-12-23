@@ -82,17 +82,25 @@ class UserAdmin(nested.NestedModelAdmin):
 class AnswerAdminInline(nested.NestedStackedInline):
     model = Answer
     formfield_overrides = {
-        models.CharField: {'widget': forms.Textarea(attrs={'rows': 4, 'cols': 130})}
+        models.CharField: {'widget': forms.Textarea(attrs={'rows': 2, 'cols': 130})}
     }
     readonly_fields = [
-        'question'
+        'question', 'text', 'predefined_answers'
     ]
+    fields = ('question', 'text', 'predefined_answers', 'points', 'comment')
 
 
 class ScheduledTestResultAdmin(nested.NestedModelAdmin):
     inlines = [
         AnswerAdminInline
     ]
+    readonly_fields = ['scheduled_test', 'student', 'reviewer']
+    fields = ('scheduled_test', 'student', 'reviewer')
+
+    def save_model(self, request, obj, form, change):
+        app_user = AppUser.objects.get(user_details=request.user)
+        obj.reviewer = app_user
+        super(ScheduledTestResultAdmin, self).save_model(request, obj, form, change)
 
 
 admin_site = ETFOCSAdminSite(name='admin')
