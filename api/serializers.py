@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from rest_framework import serializers
 from api.models import Subject, ScheduledTest, AppUser, TestSetup, Question, PredefinedAnswer, ScheduledTestResult, \
     Answer
@@ -24,6 +25,38 @@ class ScheduledTestListSerializer(serializers.ModelSerializer):
     class Meta:
         model = ScheduledTest
         fields = ['id', 'start', 'duration', 'subject', 'title']
+
+
+class SubmittedTestListSerializer(serializers.ModelSerializer):
+
+    reviewed = serializers.SerializerMethodField()
+    subject = serializers.SerializerMethodField()
+    title = serializers.SerializerMethodField()
+    points_sum = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ScheduledTest
+        fields = ['id', 'subject', 'title', 'reviewed', 'points_sum']
+
+    def get_reviewed(self, scheduled_test):
+        user = self.context.get('user')
+        reviewer = scheduled_test.results.get(student__user_details=self.context.get('user')).reviewer
+        return True if reviewer is not None else False
+
+    def get_subject(self, scheduled_test):
+        return scheduled_test.test_setup.subject.title
+
+    def get_title(self, scheduled_test):
+        return scheduled_test.test_setup.title
+
+    def get_points_sum(self, scheduled_test):
+        reviewer = scheduled_test.results.get(student__user_details=self.context.get('user')).reviewer
+        if reviewer is not None:
+            user_result: ScheduledTestResult = scheduled_test.results.get(student__user_details=self.context.get('user'))
+            return user_result.answers.aggregate(Sum('points')).get('points__sum')
+        else:
+            return None
+
 
 
 class PredefinedAnswerSerializer(serializers.ModelSerializer):
