@@ -1,0 +1,43 @@
+<div class="col-lg-8 col-lg-offset-2">
+    <br/>
+    <form class="form-horizontal">
+        <legend>{{submittedTest?.scheduled_test.test_setup.title}}</legend>
+        <div class="form-group" *ngFor="let answer of submittedTest?.answers; let i = index;">
+            <br/>
+            <h4>{{i+1}}. Question:</h4>
+            <br/>
+            <h5>
+                {{answer.question.text}}      
+            </h5>
+            <div *ngIf="answer.question.question_type == 1">
+                <!-- Basic question -->
+                <textarea disabled class="form-control" required rows="2" [ngModelOptions]="{standalone: true}" [(ngModel)]="answer.text"></textarea>
+            </div>
+            <div *ngIf="answer.question.question_type > 1">
+                <!-- Question with predefined answers -->
+                <div class="checkbox" *ngFor="let predefined_answer of answer.predefined_answers; let j = index;">
+                    -{{predefined_answer.text}}
+                </div>
+            </div>
+            <div *ngIf="answer.comment != null">
+                <br/>
+                <h5>Reviewer's comment:</h5>
+                <div>
+                    {{answer.comment}}
+                </div>       
+            </div>
+            <div *ngIf="answer.points != null">
+                <h5>Points:</h5>
+                <div>
+                    {{answer.points}}
+                </div>       
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+                <button disabled=true type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+    
+</div>

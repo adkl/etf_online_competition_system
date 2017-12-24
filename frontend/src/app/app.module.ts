@@ -8,6 +8,7 @@ import { MainNavComponent } from 'app/main-nav/main-nav.component';
 import { LoginComponent } from 'app/login/login.component';
 import { DashboardComponent } from 'app/dashboard/dashboard.component';
 import { TakeTestComponent } from 'app/take-test/take-test.component';
+import { SubmittedTestComponent } from 'app/submitted-test/submitted-test.component';
 import { UserComponent } from 'app/user-profile/user.component';
 import { AppRoutingModule } from 'app/app-routing.module';
 import { DashboardService } from 'app/services/dashboard.service';
@@ -25,7 +26,8 @@ import { AuthGuard, AuthGuardDeactivate } from 'app/auth/auth.guard';
     LoginComponent,
     DashboardComponent,
     UserComponent,
-    TakeTestComponent
+    TakeTestComponent,
+    SubmittedTestComponent
   ],
   imports: [
     BrowserModule,

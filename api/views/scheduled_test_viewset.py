@@ -25,9 +25,9 @@ class ScheduledTestViewSet(ModelViewSet, RetrieveModelMixin):
         serializer = SubmittedTestListSerializer(submitted_tests, many=True, context={'user': user})
         return Response(serializer.data)
 
-    @detail_route(methods=['GET'], url_path='submitted-test')
-    def get_single_submitted_test(self, request, pk=None):
-        pk = int(pk)
+    # @detail_route(methods=['GET'], url_path='submitted-test')
+    # def get_single_submitted_test(self, request, pk=None):
+    #     raise NotImplemented
 
 
     def retrieve(self, request, *args, **kwargs):

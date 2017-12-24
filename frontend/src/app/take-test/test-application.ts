@@ -63,6 +63,8 @@ class SubmittedTestAnswer {
     question: Question;
     comment: string;
     points: number;
+    text: string;
+    predefined_answers: PredefinedAnswer[];
 }
 
 
