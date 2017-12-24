@@ -1,13 +1,13 @@
 from rest_framework import status
-from rest_framework.mixins import CreateModelMixin
+from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from api.models import ScheduledTestResult, PredefinedAnswer, ScheduledTest, AppUser, Answer
-from api.serializers import SubmitScheduledTestResultSerializer
+from api.serializers import SubmitScheduledTestResultSerializer, SingleSubmittedTestSerializer
 
 
-class ScheduledTestResultViewSet(ModelViewSet, CreateModelMixin):
+class ScheduledTestResultViewSet(ModelViewSet, CreateModelMixin, RetrieveModelMixin):
 
     queryset = ScheduledTestResult.objects.all()
 
@@ -57,3 +57,9 @@ class ScheduledTestResultViewSet(ModelViewSet, CreateModelMixin):
                 new_answer.save()
 
         result.save()
+
+    def retrieve(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        result = self.queryset.get(id=pk, student__user_details=request.user)
+        serializer = SingleSubmittedTestSerializer(result, context={'user': request.user})
+        return Response(serializer.data)

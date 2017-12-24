@@ -58,6 +58,12 @@ class SubmittedTestListSerializer(serializers.ModelSerializer):
             return None
 
 
+class SingleSubmittedTestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ScheduledTestResult
+        fields = ['answers']
+        depth = 2
+
 
 class PredefinedAnswerSerializer(serializers.ModelSerializer):
     class Meta:
