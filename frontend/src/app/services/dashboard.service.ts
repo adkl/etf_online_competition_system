@@ -32,5 +32,9 @@ export class DashboardService {
     getSubmittedTest(id) {
         return this.http.get(Config.BASE_URL + this.SINGLE_SUBMITTED_TEST(id));
     }
+    
+    getSubmittedTests(){
+        return this.http.get(Config.BASE_URL + '/api/scheduled-tests/submitted-tests/')
+    }
 
 }
