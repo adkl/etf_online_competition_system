@@ -3,6 +3,8 @@ export class Answer {
     questionId: number;
     selected: boolean[];
     text: string;
+    comment: string;
+    points: number;
 
     constructor(selected_length) {
         this.selected = new Array<boolean>(selected_length);
@@ -52,6 +54,20 @@ export class ScheduledTest {
     duration: number;
     id: number;
     start: string;
-    test_setup: TestSetup;    
+    test_setup: TestSetup;   
 }
 
+
+// SUBMITTED TEST DTOs
+class SubmittedTestAnswer {
+    question: Question;
+    comment: string;
+    points: number;
+}
+
+
+export class SubmittedTest {
+    id: number;
+    answers: SubmittedTestAnswer[];
+    scheduled_test: ScheduledTest;
+}
