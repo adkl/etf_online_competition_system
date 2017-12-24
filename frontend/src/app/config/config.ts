@@ -6,4 +6,3 @@ export class Config {
     static BASE_URL: string = "http://localhost:8000";
 
 }
-// nesto ovdje nije okej, tebi nista ne importuje xd 

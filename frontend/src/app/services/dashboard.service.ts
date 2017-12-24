@@ -27,4 +27,8 @@ export class DashboardService {
         return this.http.post(Config.BASE_URL + this.SUBMIT_TEST_ROUTE, body);
     }
 
+    getSubmittedTests(){
+        return this.http.get(Config.BASE_URL + '/api/scheduled-tests/submitted-tests/')
+    }
+
 }

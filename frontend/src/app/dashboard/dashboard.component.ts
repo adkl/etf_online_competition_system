@@ -4,7 +4,7 @@ import { Config } from 'app/config/config'
 import { Testability } from '@angular/core/src/testability/testability';
 import { Test } from 'app/dashboard/test';
 import { Router } from '@angular/router';
-
+declare var swal: any;
 @Component({
     selector: 'dashboard',
     templateUrl: 'dashboard.component.html',
@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 
 export class DashboardComponent implements OnInit {
     tests: Test[] = [];
+    submittedTests: Test[] = [];
 
     constructor(
         private dashboardService: DashboardService,
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.getTests();
+        this.getSubmittedTests();
     }
 
     getTests() {
@@ -33,5 +35,31 @@ export class DashboardComponent implements OnInit {
 
     takeTest(id) {
         this.router.navigate([`/take-test/${id}`])
+    }
+
+    getSubmittedTests(){
+        this.dashboardService.getSubmittedTests().toPromise().then(
+            res => {
+                this.submittedTests = res.json();
+            }
+        )
+    }
+
+    notReviewed(){
+        swal({
+            title: 'Error!',
+            text: 'Test is not reviewed yet!',
+            type: 'error',
+            //confirmButtonText: 'Cool'
+          })
+    }
+
+    reviewed(){
+        swal({
+            title: 'Error!',
+            text: 'This feature is not implemented! Come back later! :)',
+            type: 'success',
+            //confirmButtonText: 'Cool'
+          }) 
     }
 }
