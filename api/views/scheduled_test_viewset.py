@@ -1,6 +1,6 @@
 from django.utils import timezone
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.decorators import list_route
+from rest_framework.viewsets import ModelViewSet, ViewSet
+from rest_framework.decorators import list_route, detail_route
 from rest_framework.response import Response
 from rest_framework.mixins import RetrieveModelMixin
 from api.models import ScheduledTest
@@ -25,6 +25,11 @@ class ScheduledTestViewSet(ModelViewSet, RetrieveModelMixin):
         serializer = SubmittedTestListSerializer(submitted_tests, many=True, context={'user': user})
         return Response(serializer.data)
 
+    @detail_route(methods=['GET'], url_path='submitted-test')
+    def get_single_submitted_test(self, request, pk=None):
+        pk = int(pk)
+
+
     def retrieve(self, request, *args, **kwargs):
         test_pk = kwargs.get('pk')
         user = request.user
@@ -33,5 +38,6 @@ class ScheduledTestViewSet(ModelViewSet, RetrieveModelMixin):
             .get(id=test_pk)
         serializer = ScheduledTestDetailsSerializer(test)
         return Response(serializer.data)
+
 
 
