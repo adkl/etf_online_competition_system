@@ -54,10 +54,20 @@ export class ScheduledTest {
     duration: number;
     id: number;
     start: string;
-    test_setup: TestSetup;    
+    test_setup: TestSetup;   
 }
+
+
+// SUBMITTED TEST DTOs
+class SubmittedTestAnswer {
+    question: Question;
+    comment: string;
+    points: number;
+}
+
 
 export class SubmittedTest {
     id: number;
-    questions: Question[];
+    answers: SubmittedTestAnswer[];
+    scheduled_test: ScheduledTest;
 }

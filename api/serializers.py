@@ -61,7 +61,7 @@ class SubmittedTestListSerializer(serializers.ModelSerializer):
 class SingleSubmittedTestSerializer(serializers.ModelSerializer):
     class Meta:
         model = ScheduledTestResult
-        fields = ['answers']
+        fields = ['answers', 'scheduled_test']
         depth = 2
 
 
