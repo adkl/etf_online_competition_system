@@ -16,13 +16,13 @@ export class UserComponent  {
     constructor(private userService: UserService,
         private router: Router
     ) {
-        this.getUser();
+        // this.getUser();
      }
 
 
-    getUser() {
-        this.userService.getUser()
-            .then(user => this.user = user);
-    }
+    // getUser() {
+    //     this.userService.getUser()
+    //         .then(user => this.user = user);
+    // }
 
 }

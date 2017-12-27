@@ -45,21 +45,7 @@ export class DashboardComponent implements OnInit {
         )
     }
 
-    notReviewed(){
-        swal({
-            title: 'Error!',
-            text: 'Test is not reviewed yet!',
-            type: 'error',
-            //confirmButtonText: 'Cool'
-          })
-    }
-
-    reviewed(){
-        swal({
-            title: 'Error!',
-            text: 'This feature is not implemented! Come back later! :)',
-            type: 'success',
-            //confirmButtonText: 'Cool'
-          }) 
+    navigateSubmittedTest(scheduled_test_id) {
+        this.router.navigate([`/submitted-test/${scheduled_test_id}`])
     }
 }

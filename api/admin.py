@@ -16,6 +16,7 @@ class ETFOCSAdminSite(AdminSite):
 
 class ScheduledTestAdmin(nested.NestedModelAdmin):
     readonly_fields = ['creator']
+    fields = ['test_setup', 'start', 'duration', 'creator']
 
     def save_model(self, request, obj, form, change):
         app_user = AppUser.objects.get(user_details=request.user)
