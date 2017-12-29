@@ -1,27 +1,13 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
-.dashboard-component {
-
+.spinner-wrap .spinner {
+    position: absolute;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+    z-index: 10000;
 }
 
-ul {
-    padding: 0;
-    margin: 0;
-}
-
-.test {
-    background: #4CAF50;
-    list-style-type: none;
-    color: white;
-    font-family: "Roboto", sans-serif;
-    padding: 0;
-    margin: 0;
-}
-
-.test:hover {
-    background: rgb(0, 158, 6);
-}
-
-#p {
-    display: inline-flex;
+.spinner-wrap {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }

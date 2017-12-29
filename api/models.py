@@ -55,7 +55,7 @@ class Question(BaseModel):
 
 class ScheduledTest(BaseModel):
     start = models.DateTimeField()
-    duration = models.DecimalField(verbose_name="Duration (in hours)", max_digits=5, decimal_places=2)
+    duration = models.FloatField(verbose_name="Duration (in hours)")
 
     test_setup = models.ForeignKey(TestSetup, related_name="scheduled_tests")
     creator = models.ForeignKey(AppUser, related_name="scheduled_tests")

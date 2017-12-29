@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.utils import timezone
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from rest_framework.decorators import list_route, detail_route
@@ -14,7 +15,10 @@ class ScheduledTestViewSet(ModelViewSet, RetrieveModelMixin):
     @list_route(methods=['GET'], url_path='available-tests')
     def get_available_scheduled_tests(self, request):
         user = request.user
-        available_tests = self.queryset.filter(start__gt=timezone.now()).exclude(results__student__user_details=user)
+        available_tests = \
+            self.queryset.filter(start__gte=timezone.now())\
+                         .exclude(results__student__user_details=user) \
+                         # .union(self.queryset.filter(start__range=(timezone.now(), timezone.now() + timezone.timedelta(hours=F('duration')))))
         serializer = ScheduledTestListSerializer(available_tests, many=True)
         return Response(serializer.data)
 
@@ -29,15 +33,24 @@ class ScheduledTestViewSet(ModelViewSet, RetrieveModelMixin):
     # def get_single_submitted_test(self, request, pk=None):
     #     raise NotImplemented
 
-
     def retrieve(self, request, *args, **kwargs):
         test_pk = kwargs.get('pk')
         user = request.user
-        test = self.queryset.filter(start__gt=timezone.now())\
-            .exclude(results__student__user_details=user)\
-            .get(id=test_pk)
-        serializer = ScheduledTestDetailsSerializer(test)
-        return Response(serializer.data)
+        try:
+            test = self.queryset.filter(start__lte=timezone.now())\
+                .exclude(results__student__user_details=user)\
+                .get(id=test_pk)
+        except ScheduledTest.DoesNotExist:
+            return Response({"error": "Please wait until the test get started"}, status=401)
+
+        # check if a test has expired
+        # noinspection PyTypeChecker
+        if test.start <= timezone.now() < test.start + timezone.timedelta(hours=test.duration):
+            serializer = ScheduledTestDetailsSerializer(test)
+            return Response(serializer.data)
+
+        else:
+            return Response({"error": "You cannot retrieve the test"}, status=401)
 
 
 

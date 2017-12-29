@@ -4,16 +4,19 @@ import { Config } from 'app/config/config'
 import { Testability } from '@angular/core/src/testability/testability';
 import { Test } from 'app/dashboard/test';
 import { Router } from '@angular/router';
+import { SpinnerComponent } from 'angular2-spinner/dist';
+
 declare var swal: any;
 @Component({
     selector: 'dashboard',
     templateUrl: 'dashboard.component.html',
-    //styleUrls: ['dashboard.component.css']
+    styleUrls: ['dashboard.component.css']
 })
 
 export class DashboardComponent implements OnInit {
     tests: Test[] = [];
     submittedTests: Test[] = [];
+    show_spinner: boolean = false;
 
     constructor(
         private dashboardService: DashboardService,
@@ -33,11 +36,32 @@ export class DashboardComponent implements OnInit {
         )
     }
 
-    takeTest(id) {
-        this.router.navigate([`/take-test/${id}`])
+    // takeTest(id) {
+    //     this.router.navigate([`/take-test/${id}`])
+    // }
+
+    takeTest(id): void {
+        this.toggleSpinner();
+        this.dashboardService.getSingleTest(id)
+            .toPromise()
+            .then(res => {
+                this.toggleSpinner();
+                this.router.navigate([`/take-test/${id}`])
+            }).catch(err => {
+                this.toggleSpinner();
+                swal({
+                    title: 'Response error!',
+                    text: err.json().error,
+                    type: 'error',
+                });
+            })
     }
 
-    getSubmittedTests(){
+    toggleSpinner(): void {
+        this.show_spinner = !this.show_spinner
+    }
+
+    getSubmittedTests() {
         this.dashboardService.getSubmittedTests().toPromise().then(
             res => {
                 this.submittedTests = res.json();

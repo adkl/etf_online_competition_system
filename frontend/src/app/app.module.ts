@@ -18,6 +18,7 @@ import { AuthService } from 'app/auth/auth.service';
 import { AuthModule } from 'app/auth/auth.module';
 import { GlobalEventsManager } from 'app/config/global-events-manager';
 import { AuthGuard, AuthGuardDeactivate } from 'app/auth/auth.guard';
+import { SpinnerModule } from 'angular2-spinner/dist';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AuthGuard, AuthGuardDeactivate } from 'app/auth/auth.guard';
     FormsModule,
     HttpModule,
     AuthModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SpinnerModule
   ],
   providers: [
     Config,

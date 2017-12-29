@@ -31,9 +31,14 @@ export class TakeTestComponent implements OnInit {
         this.dashboardService.getSingleTest(id)
             .toPromise()
             .then(res => {
-                // console.log(res)
                 this.scheduledTest = res.json()
                 this.initializeAnswers();
+            }).catch(err => {
+                swal({
+                    title: 'Response error!',
+                    text: err.json().error,
+                    type: 'error',
+                });
             })
     }
 
@@ -50,8 +55,8 @@ export class TakeTestComponent implements OnInit {
         this.scheduledTest.test_setup.questions.forEach(question => {
             // Set selected answers
             let selected = [];
-            question.user_answer.selected.map( (p, index) => {
-                if( p == true ) 
+            question.user_answer.selected.map((p, index) => {
+                if (p == true)
                     selected.push(question.predefined_answers[index].id)
             });
             let new_answer = new SubmitAnswer(question.id, question.user_answer.text, selected)
@@ -63,14 +68,14 @@ export class TakeTestComponent implements OnInit {
             .then(res => {
                 console.log(res);
             });
-            swal({
-                title: 'Succes!',
-                text: 'Done!',
-                type: 'success',
-                //confirmButtonText: 'Cool'
-                })
-            //this.router.navigate(['/dashboard']);
-            //, {relativeTo: this.router});
-            this.route.navigate(['../dashboard'])
+        swal({
+            title: 'Succes!',
+            text: 'Done!',
+            type: 'success',
+            //confirmButtonText: 'Cool'
+        })
+        //this.router.navigate(['/dashboard']);
+        //, {relativeTo: this.router});
+        this.route.navigate(['../dashboard'])
     }
 }
