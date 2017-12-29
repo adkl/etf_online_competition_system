@@ -26,6 +26,8 @@ import java.util.ArrayList
 
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
@@ -109,7 +111,8 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    public fun onSuccessfulLoginResponse(token: String) {
+    fun onSuccessfulLoginResponse(token: String) {
+        //TODO saveTokenToSharedPrefs
         val intent = Intent(this, MainActivity::class.java)
         this.startActivity(intent)
         this.finish()
@@ -195,10 +198,24 @@ class LoginActivity : AppCompatActivity() {
                 writer.flush()
                 writer.close()
 
+                val bufferedReader = BufferedReader(InputStreamReader(connection.inputStream))
+                val stringBuilder = StringBuilder()
+                var line = bufferedReader.readLine()
+                while (line != null) {
+                    stringBuilder.append(line)
+                    line = bufferedReader.readLine()
+                }
+                bufferedReader.close()
+
                 val status = connection.responseCode
-                return if (status == 200) {
-                    "token"
-                } else null
+                if (status == 200) {
+                    val tokenResponse = JSONObject(stringBuilder.toString())
+                    val token = tokenResponse.getString("token")
+                    return token
+                }
+                else {
+                    return null
+                }
 
 
             } catch (e: InterruptedException) {
