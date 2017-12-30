@@ -1,5 +1,6 @@
 package com.example.adkl.etfocs
 
+import android.app.Fragment
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -8,10 +9,15 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.example.adkl.etfocs.fragments.ScheduledTestFragment
+import com.example.adkl.etfocs.fragments.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ScheduledTestFragment.OnListFragmentInteractionListener {
+    override fun onListFragmentInteraction(item: DummyContent.DummyItem) {
+        // TODO implement
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,20 +42,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
+        var fragment: Fragment
         when (item.itemId) {
             R.id.nav_available_tests -> {
-                // Handle the camera action
+                fragment = ScheduledTestFragment()
             }
-            R.id.nav_submitted_tests -> {
-
-            }
-            R.id.nav_about -> {
-
-            }
-            R.id.nav_logout -> {
-
+//            R.id.nav_submitted_tests -> {
+//
+//            }
+//            R.id.nav_about -> {
+//
+//            }
+//            R.id.nav_logout -> {
+//
+//            }
+            else -> {
+                return false
             }
         }
+        fragmentManager.beginTransaction()
+                .replace(R.id.main_frame, fragment)
+                .commit()
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
