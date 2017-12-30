@@ -112,7 +112,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun onSuccessfulLoginResponse(token: String) {
-        //TODO saveTokenToSharedPrefs
+        Utils.setSharedPreferencesEntry("token", token, this)
         val intent = Intent(this, MainActivity::class.java)
         this.startActivity(intent)
         this.finish()
@@ -198,17 +198,18 @@ class LoginActivity : AppCompatActivity() {
                 writer.flush()
                 writer.close()
 
-                val bufferedReader = BufferedReader(InputStreamReader(connection.inputStream))
-                val stringBuilder = StringBuilder()
-                var line = bufferedReader.readLine()
-                while (line != null) {
-                    stringBuilder.append(line)
-                    line = bufferedReader.readLine()
-                }
-                bufferedReader.close()
+
 
                 val status = connection.responseCode
                 if (status == 200) {
+                    val bufferedReader = BufferedReader(InputStreamReader(connection.inputStream))
+                    val stringBuilder = StringBuilder()
+                    var line = bufferedReader.readLine()
+                    while (line != null) {
+                        stringBuilder.append(line)
+                        line = bufferedReader.readLine()
+                    }
+                    bufferedReader.close()
                     val tokenResponse = JSONObject(stringBuilder.toString())
                     val token = tokenResponse.getString("token")
                     return token

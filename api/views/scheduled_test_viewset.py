@@ -17,7 +17,7 @@ class ScheduledTestViewSet(ModelViewSet, RetrieveModelMixin):
         user = request.user
         available_tests = \
             self.queryset.filter(start__gte=timezone.now())\
-                         .exclude(results__student__user_details=user) \
+                         .exclude(results__student__user_details=user)
                          # .union(self.queryset.filter(start__range=(timezone.now(), timezone.now() + timezone.timedelta(hours=F('duration')))))
         serializer = ScheduledTestListSerializer(available_tests, many=True)
         return Response(serializer.data)
@@ -45,7 +45,7 @@ class ScheduledTestViewSet(ModelViewSet, RetrieveModelMixin):
 
         # check if a test has expired
         # noinspection PyTypeChecker
-        if test.start <= timezone.now() < test.start + timezone.timedelta(hours=test.duration):
+        if test.start <= timezone.now() < test.start + timezone.timedelta(hours=float(test.duration)):
             serializer = ScheduledTestDetailsSerializer(test)
             return Response(serializer.data)
 

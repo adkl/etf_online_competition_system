@@ -11,10 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.example.adkl.etfocs.R
+import com.example.adkl.etfocs.Utils
 import com.example.adkl.etfocs.dto.ScheduledTestDTO
 import com.example.adkl.etfocs.fragments.dummy.DummyContent
 import com.example.adkl.etfocs.fragments.dummy.DummyContent.DummyItem
 import com.example.adkl.etfocs.rest.RESTClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /**
  * A fragment representing a list of Items.
@@ -52,12 +56,19 @@ class ScheduledTestFragment : Fragment() {
             } else {
                 view.layoutManager = GridLayoutManager(context, mColumnCount)
             }
-            val restClient = RESTClient("JWT ...TODO get from sharedprefs")
-            val call = restClient.scheduledTest
-            val response = call.execute()
-            val list = response.body()
+            val restClient = RESTClient(activity)
+            val call = restClient.scheduledTests
+            call.enqueue(object: Callback<List<ScheduledTestDTO>> {
+                override fun onResponse(call: Call<List<ScheduledTestDTO>>?, response: Response<List<ScheduledTestDTO>>?) {
+                    val list = response!!.body()!!
+                    view.adapter = MyScheduledTestRecyclerViewAdapter(list, mListener)
+                }
 
-            view.adapter = MyScheduledTestRecyclerViewAdapter(list!!, mListener)
+                override fun onFailure(call: Call<List<ScheduledTestDTO>>?, t: Throwable?) {
+                    // jbg();
+                    return
+                }
+            })
         }
         return view
     }
