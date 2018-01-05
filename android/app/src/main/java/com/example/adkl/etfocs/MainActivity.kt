@@ -2,6 +2,7 @@ package com.example.adkl.etfocs
 
 import android.app.Fragment
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -11,6 +12,8 @@ import android.view.MenuItem
 import com.example.adkl.etfocs.dto.ScheduledTestDTO
 import com.example.adkl.etfocs.dto.ScheduledTestDetailsDTO
 import com.example.adkl.etfocs.fragments.ScheduledTestFragment
+import com.example.adkl.etfocs.fragments.TakeTestFragment
+import com.example.adkl.etfocs.fragments.dummy.DummyContent
 import com.example.adkl.etfocs.rest.RESTClient
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -18,21 +21,32 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ScheduledTestFragment.OnListFragmentInteractionListener {
+class MainActivity :
+        AppCompatActivity(),
+        NavigationView.OnNavigationItemSelectedListener,
+        ScheduledTestFragment.OnListFragmentInteractionListener,
+        TakeTestFragment.OnListFragmentInteractionListener {
+    override fun onListFragmentInteraction(item: ScheduledTestDetailsDTO.QuestionDTO) {
+        return
+    }
+
     override fun onListFragmentInteraction(item: ScheduledTestDTO) {
         val restClient = RESTClient(this)
-        restClient.getScheduledTestDetails(5).enqueue(object: Callback<ScheduledTestDetailsDTO> {
+        // TODO call for the test details
+        restClient.getScheduledTestDetails(item.id).enqueue(object: Callback<ScheduledTestDetailsDTO> {
             override fun onResponse(call: Call<ScheduledTestDetailsDTO>?, response: Response<ScheduledTestDetailsDTO>?) {
                 val test = response!!.body()!!
-                return
-            }
+                fragmentManager.beginTransaction()
+                        .replace(R.id.main_frame, TakeTestFragment.newInstance(1, test))
+                        .commit()
 
+            }
             override fun onFailure(call: Call<ScheduledTestDetailsDTO>?, t: Throwable?) {
                 // jbg();
                 return
             }
-
         })
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +72,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        var fragment: Fragment? = null
+        var fragment: Fragment?
         when (item.itemId) {
             R.id.nav_available_tests -> {
                 fragment = ScheduledTestFragment()

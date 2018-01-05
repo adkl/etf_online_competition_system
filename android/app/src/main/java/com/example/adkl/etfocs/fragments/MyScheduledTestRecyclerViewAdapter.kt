@@ -9,8 +9,6 @@ import com.example.adkl.etfocs.R
 import com.example.adkl.etfocs.dto.ScheduledTestDTO
 
 import com.example.adkl.etfocs.fragments.ScheduledTestFragment.OnListFragmentInteractionListener
-import com.example.adkl.etfocs.fragments.dummy.DummyContent.DummyItem
-import org.w3c.dom.Text
 
 /**
  * [RecyclerView.Adapter] that can display a [ScheduledTestDTO] and makes a call to the

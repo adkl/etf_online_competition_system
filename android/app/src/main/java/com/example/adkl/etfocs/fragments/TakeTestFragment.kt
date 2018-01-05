@@ -11,11 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.example.adkl.etfocs.R
-import com.example.adkl.etfocs.dto.ScheduledTestDTO
+import com.example.adkl.etfocs.dto.ScheduledTestDetailsDTO
+import com.example.adkl.etfocs.fragments.dummy.DummyContent
+import com.example.adkl.etfocs.fragments.dummy.DummyContent.DummyItem
 import com.example.adkl.etfocs.rest.RESTClient
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.android.synthetic.main.fragment_taketest_main.*
 
 /**
  * A fragment representing a list of Items.
@@ -28,9 +28,10 @@ import retrofit2.Response
  * Mandatory empty constructor for the fragment manager to instantiate the
  * fragment (e.g. upon screen orientation changes).
  */
-class ScheduledTestFragment : Fragment() {
+class TakeTestFragment : Fragment() {
     // TODO: Customize parameters
     private var mColumnCount = 1
+    private var mTest: ScheduledTestDetailsDTO? = null
     private var mListener: OnListFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,35 +39,19 @@ class ScheduledTestFragment : Fragment() {
 
         if (arguments != null) {
             mColumnCount = arguments.getInt(ARG_COLUMN_COUNT)
+            mTest = arguments.getSerializable(ARG_TEST) as ScheduledTestDetailsDTO
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_scheduledtest_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_taketest_main, container, false)
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            val context = view.getContext()
-            if (mColumnCount <= 1) {
-                view.layoutManager = LinearLayoutManager(context)
-            } else {
-                view.layoutManager = GridLayoutManager(context, mColumnCount)
-            }
-            val restClient = RESTClient(activity)
-            val call = restClient.scheduledTests
-            call.enqueue(object: Callback<List<ScheduledTestDTO>> {
-                override fun onResponse(call: Call<List<ScheduledTestDTO>>?, response: Response<List<ScheduledTestDTO>>?) {
-                    val list = response!!.body()!!
-                    view.adapter = MyScheduledTestRecyclerViewAdapter(list, mListener)
-                }
+        val recycler = view.findViewById<RecyclerView>(R.id.questions_recyclerView)
 
-                override fun onFailure(call: Call<List<ScheduledTestDTO>>?, t: Throwable?) {
-                    // jbg();
-                    return
-                }
-            })
-        }
+
+        recycler.adapter = MyTakeTestRecyclerViewAdapter(mTest!!.test_setup.questions, mListener)
+
         return view
     }
 
@@ -96,19 +81,21 @@ class ScheduledTestFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: ScheduledTestDTO)
+        fun onListFragmentInteraction(question: ScheduledTestDetailsDTO.QuestionDTO)
     }
 
     companion object {
 
         // TODO: Customize parameter argument names
         private val ARG_COLUMN_COUNT = "column-count"
+        private val ARG_TEST = "test"
 
         // TODO: Customize parameter initialization
-        fun newInstance(columnCount: Int): ScheduledTestFragment {
-            val fragment = ScheduledTestFragment()
+        fun newInstance(columnCount: Int, test: ScheduledTestDetailsDTO): TakeTestFragment {
+            val fragment = TakeTestFragment()
             val args = Bundle()
             args.putInt(ARG_COLUMN_COUNT, columnCount)
+            args.putSerializable(ARG_TEST, test)
             fragment.arguments = args
             return fragment
         }

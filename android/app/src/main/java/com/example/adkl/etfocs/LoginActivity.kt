@@ -68,6 +68,9 @@ class LoginActivity : AppCompatActivity() {
         if (mAuthTask != null) {
             return
         }
+        // TODO remove this
+        username.setText("student_user")
+        password.setText("1DvaTri!")
 
         // Reset errors.
         username.error = null
