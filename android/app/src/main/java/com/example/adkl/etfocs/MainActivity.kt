@@ -14,7 +14,6 @@ import com.example.adkl.etfocs.dto.ScheduledTestDTO
 import com.example.adkl.etfocs.dto.ScheduledTestDetailsDTO
 import com.example.adkl.etfocs.fragments.ScheduledTestFragment
 import com.example.adkl.etfocs.fragments.TakeTestFragment
-import com.example.adkl.etfocs.fragments.dummy.DummyContent
 import com.example.adkl.etfocs.rest.RESTClient
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -69,6 +68,10 @@ class MainActivity :
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        // set default menu item
+        onNavigationItemSelected(nav_view.menu.findItem(R.id.nav_available_tests))
+        nav_view.menu.findItem(R.id.nav_available_tests).isChecked = true
     }
 
     override fun onBackPressed() {

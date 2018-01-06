@@ -23,10 +23,12 @@ class ScheduledTestDetailsDTO constructor(
             val id: Int,
             val text: String,
             val question_type: Int,
-            val predefined_answers: List<PredefinedAnswerDTO>
+            val predefined_answers: List<PredefinedAnswerDTO>,
+            var user_answer: String
     ) : Serializable
     inner class PredefinedAnswerDTO constructor(
             val id: Int,
-            val text: String
+            val text: String,
+            var selected: Boolean
     ) : Serializable
 }

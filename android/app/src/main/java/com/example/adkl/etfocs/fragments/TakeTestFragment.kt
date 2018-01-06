@@ -3,19 +3,24 @@ package com.example.adkl.etfocs.fragments
 import android.content.Context
 import android.os.Bundle
 import android.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 
 import com.example.adkl.etfocs.R
 import com.example.adkl.etfocs.dto.ScheduledTestDetailsDTO
-import com.example.adkl.etfocs.fragments.dummy.DummyContent
-import com.example.adkl.etfocs.fragments.dummy.DummyContent.DummyItem
+import com.example.adkl.etfocs.dto.SubmitTestDTO
 import com.example.adkl.etfocs.rest.RESTClient
 import kotlinx.android.synthetic.main.fragment_taketest_main.*
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /**
  * A fragment representing a list of Items.
@@ -47,12 +52,45 @@ class TakeTestFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_taketest_main, container, false)
 
+
         val recycler = view.findViewById<RecyclerView>(R.id.questions_recyclerView)
-
-
         recycler.adapter = MyTakeTestRecyclerViewAdapter(mTest!!.test_setup.questions, mListener)
 
+        val submitButton = view.findViewById<Button>(R.id.test_submit_btn)
+        submitButton.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(v: View?) {
+                submitTest(mTest!!)
+            }
+
+        })
         return view
+    }
+
+    fun submitTest(test: ScheduledTestDetailsDTO) {
+        // reformat to SubmitTestDTO
+        val restClient = RESTClient(activity)
+        restClient.submitTest(SubmitTestDTO(test))
+                .enqueue(object: Callback<Void> {
+                    override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                        if (response!!.code() == 201) {
+                            AlertDialog.Builder(activity)
+                                    .setTitle("Success!")
+                                    .show()
+
+                        }
+                        else {
+                            AlertDialog.Builder(activity)
+                                    .setTitle("Response error")
+                                    .setMessage("Unknown error")
+                                    .show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                        return
+                    }
+                } )
+
     }
 
 

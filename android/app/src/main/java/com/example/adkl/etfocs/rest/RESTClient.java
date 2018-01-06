@@ -6,6 +6,7 @@ import com.example.adkl.etfocs.Routes;
 import com.example.adkl.etfocs.Utils;
 import com.example.adkl.etfocs.dto.ScheduledTestDTO;
 import com.example.adkl.etfocs.dto.ScheduledTestDetailsDTO;
+import com.example.adkl.etfocs.dto.SubmitTestDTO;
 
 import java.util.List;
 
@@ -34,5 +35,9 @@ public class RESTClient {
 
     public Call<ScheduledTestDetailsDTO> getScheduledTestDetails(Integer id) {
         return mService.scheduledTestDetails(mToken, id);
+    }
+
+    public Call<Void> submitTest(SubmitTestDTO test) {
+        return mService.submitTest(mToken, test);
     }
 }
