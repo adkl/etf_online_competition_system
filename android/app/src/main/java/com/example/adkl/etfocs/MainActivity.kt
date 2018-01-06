@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.example.adkl.etfocs.dto.ScheduledTestDTO
@@ -17,6 +18,7 @@ import com.example.adkl.etfocs.fragments.dummy.DummyContent
 import com.example.adkl.etfocs.rest.RESTClient
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,11 +37,18 @@ class MainActivity :
         // TODO call for the test details
         restClient.getScheduledTestDetails(item.id).enqueue(object: Callback<ScheduledTestDetailsDTO> {
             override fun onResponse(call: Call<ScheduledTestDetailsDTO>?, response: Response<ScheduledTestDetailsDTO>?) {
-                val test = response!!.body()!!
-                fragmentManager.beginTransaction()
-                        .replace(R.id.main_frame, TakeTestFragment.newInstance(1, test))
-                        .commit()
-
+                if (response!!.code() == 200) {
+                    val test = response!!.body()!!
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.main_frame, TakeTestFragment.newInstance(1, test))
+                            .commit()
+                }
+                else {
+                    AlertDialog.Builder(this@MainActivity)
+                            .setTitle("Response error")
+                            .setMessage(JSONObject(response!!.errorBody()!!.string()).getString("error"))
+                            .show()
+                }
             }
             override fun onFailure(call: Call<ScheduledTestDetailsDTO>?, t: Throwable?) {
                 // jbg();
