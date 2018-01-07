@@ -3,6 +3,7 @@ package com.example.adkl.etfocs.fragments
 import android.content.Context
 import android.os.Bundle
 import android.app.Fragment
+import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -11,11 +12,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.example.adkl.etfocs.MainActivity
 
 import com.example.adkl.etfocs.R
 import com.example.adkl.etfocs.dto.ScheduledTestDetailsDTO
 import com.example.adkl.etfocs.dto.SubmitTestDTO
 import com.example.adkl.etfocs.rest.RESTClient
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_taketest_main.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -75,7 +78,12 @@ class TakeTestFragment : Fragment() {
                         if (response!!.code() == 201) {
                             AlertDialog.Builder(activity)
                                     .setTitle("Success!")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Go back!", { _: DialogInterface, _: Int ->
+                                        (activity as MainActivity).onNavigationItemSelected(activity.nav_view.menu.findItem(R.id.nav_available_tests))
+                                    })
                                     .show()
+
 
                         }
                         else {

@@ -9,6 +9,7 @@
         android:id="@+id/question_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="Question type 2"/>
 
 

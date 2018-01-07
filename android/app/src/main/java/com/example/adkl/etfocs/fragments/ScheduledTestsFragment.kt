@@ -28,7 +28,7 @@ import retrofit2.Response
  * Mandatory empty constructor for the fragment manager to instantiate the
  * fragment (e.g. upon screen orientation changes).
  */
-class ScheduledTestFragment : Fragment() {
+class ScheduledTestsFragment : Fragment() {
     // TODO: Customize parameters
     private var mColumnCount = 1
     private var mListener: OnListFragmentInteractionListener? = null
@@ -105,8 +105,8 @@ class ScheduledTestFragment : Fragment() {
         private val ARG_COLUMN_COUNT = "column-count"
 
         // TODO: Customize parameter initialization
-        fun newInstance(columnCount: Int): ScheduledTestFragment {
-            val fragment = ScheduledTestFragment()
+        fun newInstance(columnCount: Int): ScheduledTestsFragment {
+            val fragment = ScheduledTestsFragment()
             val args = Bundle()
             args.putInt(ARG_COLUMN_COUNT, columnCount)
             fragment.arguments = args

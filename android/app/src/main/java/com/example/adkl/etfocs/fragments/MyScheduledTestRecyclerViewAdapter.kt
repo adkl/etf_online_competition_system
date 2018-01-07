@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.example.adkl.etfocs.R
 import com.example.adkl.etfocs.dto.ScheduledTestDTO
 
-import com.example.adkl.etfocs.fragments.ScheduledTestFragment.OnListFragmentInteractionListener
+import com.example.adkl.etfocs.fragments.ScheduledTestsFragment.OnListFragmentInteractionListener
 
 /**
  * [RecyclerView.Adapter] that can display a [ScheduledTestDTO] and makes a call to the

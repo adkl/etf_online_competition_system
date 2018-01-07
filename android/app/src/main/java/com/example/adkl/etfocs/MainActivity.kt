@@ -2,7 +2,6 @@ package com.example.adkl.etfocs
 
 import android.app.Fragment
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -12,7 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.example.adkl.etfocs.dto.ScheduledTestDTO
 import com.example.adkl.etfocs.dto.ScheduledTestDetailsDTO
-import com.example.adkl.etfocs.fragments.ScheduledTestFragment
+import com.example.adkl.etfocs.fragments.ScheduledTestsFragment
 import com.example.adkl.etfocs.fragments.TakeTestFragment
 import com.example.adkl.etfocs.rest.RESTClient
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,7 +24,7 @@ import retrofit2.Response
 class MainActivity :
         AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener,
-        ScheduledTestFragment.OnListFragmentInteractionListener,
+        ScheduledTestsFragment.OnListFragmentInteractionListener,
         TakeTestFragment.OnListFragmentInteractionListener {
     override fun onListFragmentInteraction(item: ScheduledTestDetailsDTO.QuestionDTO) {
         return
@@ -33,13 +32,13 @@ class MainActivity :
 
     override fun onListFragmentInteraction(item: ScheduledTestDTO) {
         val restClient = RESTClient(this)
-        // TODO call for the test details
         restClient.getScheduledTestDetails(item.id).enqueue(object: Callback<ScheduledTestDetailsDTO> {
             override fun onResponse(call: Call<ScheduledTestDetailsDTO>?, response: Response<ScheduledTestDetailsDTO>?) {
                 if (response!!.code() == 200) {
                     val test = response!!.body()!!
                     fragmentManager.beginTransaction()
                             .replace(R.id.main_frame, TakeTestFragment.newInstance(1, test))
+                            .addToBackStack("scheduled_test_details")
                             .commit()
                 }
                 else {
@@ -87,14 +86,18 @@ class MainActivity :
         var fragment: Fragment?
         when (item.itemId) {
             R.id.nav_available_tests -> {
-                fragment = ScheduledTestFragment()
+                fragment = ScheduledTestsFragment()
             }
 //            R.id.nav_submitted_tests -> {
 //
 //            }
-//            R.id.nav_about -> {
-//
-//            }
+            R.id.nav_about -> {
+                AlertDialog.Builder(this)
+                        .setTitle("About")
+                        .setMessage("Adnan Alibegovic | Anisa Hadzibulic | Edin Ceric")
+                        .show()
+                return false
+            }
             R.id.nav_logout -> {
                 val intent = Intent(this, LoginActivity::class.java)
                 this.startActivity(intent)
