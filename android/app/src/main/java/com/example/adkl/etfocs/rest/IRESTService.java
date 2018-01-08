@@ -4,6 +4,7 @@ import com.example.adkl.etfocs.Routes;
 import com.example.adkl.etfocs.dto.ScheduledTestDTO;
 import com.example.adkl.etfocs.dto.ScheduledTestDetailsDTO;
 import com.example.adkl.etfocs.dto.SubmitTestDTO;
+import com.example.adkl.etfocs.dto.SubmittedTestDTO;
 
 import java.util.List;
 
@@ -24,6 +25,9 @@ public interface IRESTService {
 
     @GET(Routes.SCHEDULED_TEST_DETAILS)
     Call<ScheduledTestDetailsDTO> scheduledTestDetails(@Header("Authorization") String authorization, @Path("id") int id);
+
+    @GET(Routes.SUBMITTED_TESTS)
+    Call<List<SubmittedTestDTO>> submittedTests(@Header("Authorization") String authorization);
 
     @POST(Routes.SUBMIT_TEST)
     Call<Void> submitTest(@Header("Authorization") String authorization, @Body SubmitTestDTO test);

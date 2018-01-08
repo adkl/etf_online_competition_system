@@ -25,7 +25,7 @@ class MyScheduledTestRecyclerViewAdapter(private val mValues: List<ScheduledTest
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.mItem = mValues[position]
-        holder.mIdView.text = mValues[position].id.toString()
+        holder.mIdView.text = mValues[position].start.toLocaleString()
         holder.mContentView.text = mValues[position].title
 
         holder.mView.setOnClickListener {
@@ -43,7 +43,7 @@ class MyScheduledTestRecyclerViewAdapter(private val mValues: List<ScheduledTest
         var mItem: ScheduledTestDTO? = null
 
         init {
-            mIdView = mView.findViewById<TextView>(R.id.id)
+            mIdView = mView.findViewById<TextView>(R.id.startDate)
             mContentView = mView.findViewById<TextView>(R.id.content)
         }
 

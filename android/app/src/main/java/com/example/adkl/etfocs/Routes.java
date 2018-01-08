@@ -11,5 +11,6 @@ public class Routes {
     public final static String LOGIN_ROUTE = "/api-token-auth/";
     public final static String SCHEDULED_TESTS = "/api/scheduled-tests/available-tests/";
     public final static String SCHEDULED_TEST_DETAILS = "/api/scheduled-tests/{id}/";
+    public final static String SUBMITTED_TESTS = "/api/scheduled-tests/submitted-tests/";
     public final static String SUBMIT_TEST = "/api/scheduled-test-result/";
 }

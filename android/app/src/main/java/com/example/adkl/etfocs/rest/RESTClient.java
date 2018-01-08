@@ -7,6 +7,7 @@ import com.example.adkl.etfocs.Utils;
 import com.example.adkl.etfocs.dto.ScheduledTestDTO;
 import com.example.adkl.etfocs.dto.ScheduledTestDetailsDTO;
 import com.example.adkl.etfocs.dto.SubmitTestDTO;
+import com.example.adkl.etfocs.dto.SubmittedTestDTO;
 
 import java.util.List;
 
@@ -35,6 +36,10 @@ public class RESTClient {
 
     public Call<ScheduledTestDetailsDTO> getScheduledTestDetails(Integer id) {
         return mService.scheduledTestDetails(mToken, id);
+    }
+
+    public Call<List<SubmittedTestDTO>> getSubmittedTest() {
+        return mService.submittedTests(mToken);
     }
 
     public Call<Void> submitTest(SubmitTestDTO test) {

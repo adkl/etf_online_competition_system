@@ -12,14 +12,14 @@
 
                         <div (click)="takeTest(test.id)" class="panel panel-primary">
                                 <div class="panel-heading">
-                                        <h3 class="panel-title"> Subject: {{test.subject}} </h3>
+                                        <h3 class="panel-title"> {{test.title}} </h3>
                                 </div>
                                 <div class="panel-body">
                                         <div class="alert alert-dismissible alert-info">
                                                 <p>
-                                                        <strong>Title: </strong> {{test.title}}</p>
+                                                        <strong>Subject: </strong> {{test.subject}}</p>
                                                 <p>
-                                                        <strong>Test date/time:</strong> {{test.start}}</p>
+                                                        <strong>Start at:</strong> {{test.start | date: 'medium'}}</p>
                                                 <p>
                                                         <strong>Duration:</strong> {{test.duration}} hr.</p>
                                         </div>
@@ -42,14 +42,12 @@
 
                         <div *ngIf="t.points_sum != null" (click)="navigateSubmittedTest(t.id)" class="panel panel-success">
                                 <div class="panel-heading">
-                                        <h3 class="panel-title"> Subject: {{t.subject}} </h3>
+                                        <h3 class="panel-title"> {{t.title}} </h3>
                                 </div>
                                 <div class="panel-body">
                                         <div class="alert alert-dismissible alert-info">
                                                 <p>
-                                                        <strong>Title: </strong> {{t.title}}</p>
-                                                <p>
-                                                        <strong>Test reviewed:</strong> {{t.reviewed}}</p>
+                                                        <strong>Subject: </strong> {{t.subject}}</p>
                                                 <p>
                                                         <strong>Test points_sum:</strong> {{t.points_sum}} </p>
                                         </div>
@@ -69,7 +67,7 @@
                                                 <p>
                                                         <strong>Title: </strong> {{t.title}}</p>
                                                 <p>
-                                                        <strong>Test reviewed:</strong> {{t.reviewed}}</p>
+                                                        <strong>Test points_sum:</strong> - </p>
                                         </div>
                                 </div>
                         </div>

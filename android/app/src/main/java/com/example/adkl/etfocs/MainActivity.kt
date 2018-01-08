@@ -12,6 +12,7 @@ import android.view.MenuItem
 import com.example.adkl.etfocs.dto.ScheduledTestDTO
 import com.example.adkl.etfocs.dto.ScheduledTestDetailsDTO
 import com.example.adkl.etfocs.fragments.ScheduledTestsFragment
+import com.example.adkl.etfocs.fragments.SubmittedTestsFragment
 import com.example.adkl.etfocs.fragments.TakeTestFragment
 import com.example.adkl.etfocs.rest.RESTClient
 import kotlinx.android.synthetic.main.activity_main.*
@@ -88,9 +89,9 @@ class MainActivity :
             R.id.nav_available_tests -> {
                 fragment = ScheduledTestsFragment()
             }
-//            R.id.nav_submitted_tests -> {
-//
-//            }
+            R.id.nav_submitted_tests -> {
+                fragment = SubmittedTestsFragment()
+            }
             R.id.nav_about -> {
                 AlertDialog.Builder(this)
                         .setTitle("About")

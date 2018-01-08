@@ -69,8 +69,8 @@ class LoginActivity : AppCompatActivity() {
             return
         }
         // TODO remove this
-        username.setText("student_user")
-        password.setText("1DvaTri!")
+//        username.setText("student_user")
+//        password.setText("1DvaTri!")
 
         // Reset errors.
         username.error = null
@@ -109,7 +109,7 @@ class LoginActivity : AppCompatActivity() {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true)
-            mAuthTask = UserLoginTask(this, emailStr, passwordStr, ipAddress.text.toString())
+            mAuthTask = UserLoginTask(this, emailStr, passwordStr)
             mAuthTask!!.execute(null as Void?)
         }
     }
@@ -177,13 +177,12 @@ class LoginActivity : AppCompatActivity() {
     inner class UserLoginTask internal constructor(
             private val mCaller: LoginActivity,
             private val mUsername: String,
-            private val mPassword: String,
-            private val mIpAddress: String) : AsyncTask<Void, Void, String>() {
+            private val mPassword: String) : AsyncTask<Void, Void, String>() {
 
         override fun doInBackground(vararg params: Void): String? {
 
             try {
-                val url = URL(Routes.BASE_URL(mIpAddress) + Routes.LOGIN_ROUTE)
+                val url = URL(Routes.BASE_URL(null) + Routes.LOGIN_ROUTE)
                 val connection = url.openConnection() as HttpURLConnection
 
                 connection.doOutput = true
