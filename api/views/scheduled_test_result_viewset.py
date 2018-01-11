@@ -32,10 +32,16 @@ class ScheduledTestResultViewSet(ModelViewSet, CreateModelMixin, RetrieveModelMi
 
             scheduled_test_id = kwargs.get('id')
             answers = kwargs.get('answers')
-            scheduled_test = \
-                ScheduledTest.objects.prefetch_related('test_setup__questions') \
-                                     .prefetch_related('test_setup__questions__predefined_answers') \
-                                     .get(id=scheduled_test_id)
+            scheduled_test = ScheduledTest.objects.select_related('test_setup')\
+                .prefetch_related('test_setup__questions')\
+                .prefetch_related('test_setup__questions__predefined_answers')\
+                .get(id=scheduled_test_id)
+                # ScheduledTest.objects.prefetch_related('test_setup__questions') \
+                #                      .prefetch_related('test_setup__questions__predefined_answers') \
+                #                      .get(id=scheduled_test_id)
+
+
+
             result.scheduled_test = scheduled_test
             result.student = AppUser.objects.get(user_details=kwargs.get('student'))
             result.save()
