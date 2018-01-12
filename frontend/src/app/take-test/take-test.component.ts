@@ -66,16 +66,13 @@ export class TakeTestComponent implements OnInit {
         this.dashboardService.submitSingleTest(testSubmit)
             .toPromise()
             .then(res => {
-                console.log(res);
+                swal({
+                    title: 'Succes!',
+                    text: 'Done!',
+                    type: 'success',
+                    //confirmButtonText: 'Cool'
+                })
+                this.route.navigate(['../dashboard'])
             });
-        swal({
-            title: 'Succes!',
-            text: 'Done!',
-            type: 'success',
-            //confirmButtonText: 'Cool'
-        })
-        //this.router.navigate(['/dashboard']);
-        //, {relativeTo: this.router});
-        this.route.navigate(['../dashboard'])
     }
 }

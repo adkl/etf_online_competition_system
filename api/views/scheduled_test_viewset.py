@@ -20,13 +20,15 @@ class ScheduledTestViewSet(ModelViewSet, RetrieveModelMixin):
         #                  .exclude(results__student__user_details=user)
         #                  .union(self.queryset.filter(start__range=(timezone.now(), timezone.now() + timezone.timedelta(hours=F('duration')))))
 
-        available_tests = list(self.queryset.exclude(results__student__user_details=user))
-        for test in available_tests:
+        all_tests = list(self.queryset.exclude(results__student__user_details=user))
+        available_tests = []
+        for test in all_tests:
             if test.start > timezone.now():
+                available_tests.append(test)
                 continue
             if test.start <= timezone.now() <= test.start + timezone.timedelta(hours=float(test.duration)):
+                available_tests.append(test)
                 continue
-            available_tests.remove(test)
 
         serializer = ScheduledTestListSerializer(available_tests, many=True)
         return Response(serializer.data)
