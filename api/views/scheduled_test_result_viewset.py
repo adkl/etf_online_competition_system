@@ -1,3 +1,4 @@
+from django.db import transaction
 from rest_framework import status
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin
 from rest_framework.response import Response
@@ -18,9 +19,8 @@ class ScheduledTestResultViewSet(ModelViewSet, CreateModelMixin, RetrieveModelMi
         self.__save_test_result(**{**request.data, "student": request.user})
         return Response(status=status.HTTP_201_CREATED)
 
+    @transaction.atomic
     def __save_test_result(self, **kwargs):
-        # TODO: ANISA -> put an if statement to check if a user already submitted a test
-
         try:
             # noinspection PyUnusedLocal
             existing_result = self.queryset.get(
@@ -40,7 +40,6 @@ class ScheduledTestResultViewSet(ModelViewSet, CreateModelMixin, RetrieveModelMi
             result.student = AppUser.objects.get(user_details=kwargs.get('student'))
             result.save()
 
-            # TODO Google queryset bulk create and create objects with many-to-many relations -> pava Google..
             for answer in answers:
                 new_answer = Answer()
 
