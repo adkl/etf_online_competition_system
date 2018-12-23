@@ -21,3 +21,15 @@ services:
       - .env_postgres
     depends_on:
       - db
+  fe:
+    build:
+      context: ./frontend/
+    container_name: etfocs-frontend
+    command: bash ./frontend/run.sh
+    ports:
+      - "5000:5000"
+    depends_on:
+      - be
+    volumes:
+      - "./frontend/:/app"
+      - "node_modules:/app/node_modules"
