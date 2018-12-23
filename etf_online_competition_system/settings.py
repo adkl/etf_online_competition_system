@@ -96,7 +96,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.getenv('POSTGRES_DB', 'etfocsdb'),
         'HOST': os.getenv('POSTGRES_HOST', 'etfocs-postgres'),
-        'PORT': '5555',
+        'PORT': '5432',
         'USER': os.getenv('POSTGRES_USER', 'etfocs'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'etfocspw')
     }
