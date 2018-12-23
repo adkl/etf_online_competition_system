@@ -7,3 +7,4 @@ PyJWT==1.5.3
 python-monkey-business==1.0.0
 pytz==2017.3
 six==1.11.0
+psycopg2

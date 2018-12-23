@@ -93,8 +93,12 @@ WSGI_APPLICATION = 'etf_online_competition_system.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'etfocsdb',
+        'HOST': 'localhost',
+        'PORT': '5433',
+        'USER': 'etfocs',
+        'PASSWORD': 'etfocspw'
     }
 }
 
@@ -165,10 +169,10 @@ LOGGING = {
             'class': 'logging.StreamHandler',
         }
     },
-    'loggers': {
-        'django.db.backends': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-        }
-    }
+    # 'loggers': {
+    #     'django.db.backends': {
+    #         'level': 'DEBUG',
+    #         'handlers': ['console'],
+    #     }
+    # }
 }
