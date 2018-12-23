@@ -94,11 +94,11 @@ WSGI_APPLICATION = 'etf_online_competition_system.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'etfocsdb',
-        'HOST': 'localhost',
-        'PORT': '5433',
-        'USER': 'etfocs',
-        'PASSWORD': 'etfocspw'
+        'NAME': os.getenv('POSTGRES_DB', 'etfocsdb'),
+        'HOST': os.getenv('POSTGRES_HOST', 'etfocs-postgres'),
+        'PORT': '5555',
+        'USER': os.getenv('POSTGRES_USER', 'etfocs'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'etfocspw')
     }
 }
 
