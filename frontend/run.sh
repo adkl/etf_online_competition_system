@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
+npm install -g @angular/cli
 npm install
-npm start
+ng serve -H "0.0.0.0"

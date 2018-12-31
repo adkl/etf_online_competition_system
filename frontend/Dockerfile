@@ -1,7 +1,15 @@
-FROM node:10
+FROM node:6
 
-WORKDIR /app
-VOLUME /app/node_modules
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
 
-EXPOSE 5000
-CMD ["/bin/bash"]
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+
+COPY package.json /usr/src/app/package.json
+RUN npm install
+RUN npm install -g @angular/cli
+
+COPY . /usr/src/app
+
+# start app
+CMD ng serve --host 0.0.0.0

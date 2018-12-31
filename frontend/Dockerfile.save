@@ -1,0 +1,8 @@
+FROM node:6
+
+WORKDIR /app
+VOLUME /app/node_modules
+
+
+CM
+ENTRYPOINT ["ng", "serve", "-H", "0.0.0.0"]
